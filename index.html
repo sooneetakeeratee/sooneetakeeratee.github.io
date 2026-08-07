@@ -65,10 +65,12 @@
    jumps are reliable; section offsets come from scroll-margin-top below. */
 body{
   margin:0;color:var(--ink);
-  /* two very soft warm washes so the page isn't a dead flat colour */
+  /* One soft wash, kept on the LEFT. A second wash used to sit top-right,
+     behind the portrait — the hero scrim paints flat cream there, so the
+     two never matched and left a visible horizontal seam. The portrait's
+     own glow supplies the warmth on that side instead. */
   background:
-    radial-gradient(70% 45% at 8% -5%, rgba(192,106,68,.09), transparent 62%),
-    radial-gradient(55% 45% at 96% 12%, rgba(192,127,142,.10), transparent 62%),
+    radial-gradient(64% 42% at 6% -6%, rgba(192,106,68,.085), transparent 64%),
     var(--bg);
   background-repeat:no-repeat;
   font-family:"Jost",system-ui,sans-serif;font-weight:300;
@@ -111,7 +113,7 @@ section[id],#top{scroll-margin-top:92px;}
    between 761px and 1180px. The glow has already faded to transparent
    by the clip edge, so nothing visible is lost. */
 .hero{padding:3.5rem 0 5rem;overflow:hidden;}
-.hero-grid{display:grid;grid-template-columns:1fr 40%;gap:2rem;align-items:center;}
+.hero-grid{display:grid;grid-template-columns:1fr 46%;gap:1.5rem;align-items:center;}
 .hero-eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;color:var(--terracotta);font-weight:500;margin:0 0 1.4rem;}
 .hero-title{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(3rem,6vw,5rem);line-height:1;margin:0 0 1.8rem;letter-spacing:.005em;}
 .hero-copy{font-size:1.08rem;color:var(--muted);max-width:38ch;margin:0 0 2.4rem;}
@@ -140,8 +142,13 @@ section[id],#top{scroll-margin-top:92px;}
    scrim in the PAGE's own colour over the bottom — she dissolves into the
    background instead of ending on a line. */
 .hero-portrait::after{
-  content:"";position:absolute;left:-2%;right:-2%;bottom:-1px;height:30%;
-  background:linear-gradient(to bottom,rgba(248,245,241,0) 0%,rgba(248,245,241,.72) 46%,var(--bg) 84%);
+  /* MUST extend wider than the ::before glow (-12%), or the cream stops
+     before the glow does and leaves a visible vertical step at the bottom */
+  content:"";position:absolute;left:-20%;right:-20%;bottom:-1px;height:34%;
+  background:linear-gradient(to bottom,rgba(248,245,241,0) 0%,rgba(248,245,241,.70) 44%,var(--bg) 82%);
+  /* feather its own left/right edges so the rectangle never shows */
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
   z-index:2;pointer-events:none;
 }
 .hero-portrait img{width:100%;height:auto;display:block;}
