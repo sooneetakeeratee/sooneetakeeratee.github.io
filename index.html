@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<!--
+  ===========================================================
+  SOONEETA KEERATEE — personal multi-brand site
+  Single-file build (index.html) + images in the same folder.
+  Only image file: portrait.png. The three brand cards use inline SVG art
+  (decorative, aria-hidden) instead of photos — swap in real product shots
+  whenever they exist; see the card-media blocks.
+  The hero portrait is a true cut-out (transparent PNG) — the old
+  radial-mask blend was removed, the alpha channel handles the edges.
+  Contact is via social DM (Instagram / TikTok) — no email icon by design.
+  ===========================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sooneeta Keeratee — handmade products, personal style, and stories through video. One creative journey.">
+<title>Sooneeta Keeratee</title>
+
+<!-- ===== social preview =====
+     URLs point at https://sooneetakeeratee.netlify.app/ (Netlify, served at the root)
+     If the repo is ever renamed or moved to a custom domain, update the
+     canonical, og:url, og:image and twitter:image below to match —
+     og:image must stay an ABSOLUTE url or the preview picture won't show. -->
+<link rel="canonical" href="https://sooneetakeeratee.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sooneeta Keeratee">
+<meta property="og:title" content="Sooneeta Keeratee">
+<meta property="og:description" content="Handmade crochet, candles and bouquets, everyday fashion, and stories through video — three brands, made and chosen in Nepal.">
+<meta property="og:url" content="https://sooneetakeeratee.netlify.app/">
+<meta property="og:image" content="https://sooneetakeeratee.netlify.app/portrait.png">
+<meta property="og:image:alt" content="Portrait of Sooneeta Keeratee">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sooneeta Keeratee">
+<meta name="twitter:description" content="Handmade crochet, candles and bouquets, everyday fashion, and stories through video.">
+<meta name="twitter:image" content="https://sooneetakeeratee.netlify.app/portrait.png">
+<meta name="theme-color" content="#F8F5F1">
+
+<!-- favicon: inline SVG monogram, no extra file to upload -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c06a44'/><path d='M21 11c-1.5-2.5-9-3-9 1.5 0 4 9 2.5 9 7 0 4.5-7.5 4-9 1.5' fill='none' stroke='%23F8F5F1' stroke-width='3.2' stroke-linecap='round'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F5F1;
+  --ink:#1F1F1F;
+  --muted:#6C6C6C;
+  --terracotta:#c06a44;
+  --clay:#b5651d;
+  --rose:#c07f8e;
+  --red:#c4302b;
+  --line:#e6ddd2;
+  --max:1180px;
+  --radius:20px;
+}
+*{box-sizing:border-box;}
+/* No scroll-behavior here on purpose. Smooth scrolling is driven entirely
+   from JS (window.scrollTo) so the CSS and the script can't fight over it —
+   a browser-managed smooth scroll was being dropped on mobile. */
+body{
+  margin:0;color:var(--ink);
+  /* two very soft warm washes so the page isn't a dead flat colour */
+  background:
+    radial-gradient(70% 45% at 8% -5%, rgba(192,106,68,.09), transparent 62%),
+    radial-gradient(55% 45% at 96% 12%, rgba(192,127,142,.10), transparent 62%),
+    var(--bg);
+  background-repeat:no-repeat;
+  font-family:"Jost",system-ui,sans-serif;font-weight:300;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem;}
+/* stop anchor targets landing underneath the sticky header */
+section[id],#top{scroll-margin-top:92px;}
+
+/* ---------- sticky nav ---------- */
+.nav{position:sticky;top:0;z-index:50;}
+/* The blur lives on a pseudo-element, NOT on .nav itself. backdrop-filter
+   on .nav would make it the containing block for its position:fixed
+   children — which traps the mobile drawer inside the header bar. */
+.nav::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:rgba(248,245,241,0);
+  transition:background .3s,box-shadow .3s,backdrop-filter .3s;
+}
+.nav.scrolled::before{
+  background:rgba(248,245,241,.72);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 rgba(0,0,0,.05);
+}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:1.3rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;}
+.brandmark{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:600;text-decoration:none;letter-spacing:.01em;}
+.nav-links{display:flex;align-items:center;gap:1.7rem;}
+.nav-links a{text-decoration:none;font-size:.84rem;letter-spacing:.05em;color:var(--ink);font-weight:400;transition:color .15s;}
+.nav-links a.txt:hover{color:var(--terracotta);}
+/* position:relative so the z-index in the mobile rule actually applies */
+.hamburger{display:none;position:relative;background:none;border:none;cursor:pointer;padding:.5rem;margin:-.5rem;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:.3s;}
+
+/* ---------- hero ---------- */
+.hero{padding:3.5rem 0 5rem;}
+.hero-grid{display:grid;grid-template-columns:1fr 40%;gap:2rem;align-items:center;}
+.hero-eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;color:var(--terracotta);font-weight:500;margin:0 0 1.4rem;}
+.hero-title{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(3rem,6vw,5rem);line-height:1;margin:0 0 1.8rem;letter-spacing:.005em;}
+.hero-copy{font-size:1.08rem;color:var(--muted);max-width:38ch;margin:0 0 2.4rem;}
+.hero-copy strong{color:var(--ink);font-weight:400;}
+.btn{
+  display:inline-flex;align-items:center;gap:.9rem;
+  background:#26211c;color:#f3ece2;text-decoration:none;
+  padding:1.05rem 1.9rem;border-radius:100px;
+  font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:400;
+  transition:background .2s,transform .2s;
+}
+.btn:hover{background:#3c342b;transform:translateY(-2px);}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;transition:transform .2s;}
+.btn:hover svg{transform:translateX(4px);}
+.hero-portrait{position:relative;}
+/* soft glow so the cut-out sits on something instead of floating */
+.hero-portrait::before{
+  content:"";position:absolute;inset:-10% -8% -2%;border-radius:50%;
+  background:radial-gradient(circle at 52% 46%,rgba(192,106,68,.20),rgba(192,127,142,.13) 48%,transparent 72%);
+  z-index:0;
+}
+/* true cut-out PNG — no mask needed, the alpha channel does the work */
+.hero-portrait img{width:100%;height:auto;display:block;position:relative;z-index:1;}
+
+/* ---------- section shell ---------- */
+.section{padding:5rem 0;}
+.section-head{text-align:center;margin-bottom:3rem;}
+.section-eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.74rem;color:var(--muted);font-weight:500;margin:0;}
+.section-title{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:500;margin:.4rem 0 0;}
+
+/* ---------- brand cards ---------- */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;}
+.card{
+  display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 8px 30px rgba(90,70,50,.07);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(90,70,50,.14);}
+.card:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
+.card-media{aspect-ratio:16/11;overflow:hidden;background:#ece4d9;}
+.card-media img,.card-media .card-art{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.card:hover .card-media img,.card:hover .card-media .card-art{transform:scale(1.06);}
+.card-body{padding:1.7rem 1.6rem 1.9rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
+.card-cat{text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;color:var(--accent);font-weight:500;}
+.card-name{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:500;margin:0;}
+.card-desc{font-size:.95rem;color:var(--muted);margin:0;flex:1;}
+.card-cta{margin-top:.6rem;display:inline-flex;align-items:center;gap:.4rem;color:var(--accent);font-size:.9rem;font-weight:400;}
+.card:hover .card-cta{gap:.7rem;}
+.card-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;transition:transform .2s;}
+.card:hover .card-cta svg{transform:translateX(3px);}
+
+/* left-aligned section heads — breaks the run of identical centred stacks */
+.section-head.left{text-align:left;}
+
+/* ---------- how to order ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem;}
+.step-n{
+  font-family:"Cormorant Garamond",serif;font-size:2.1rem;font-weight:500;
+  color:var(--terracotta);line-height:1;display:block;margin-bottom:.7rem;
+}
+.step h3{
+  font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:500;
+  margin:0 0 .5rem;
+}
+.step p{color:var(--muted);font-size:.98rem;margin:0;}
+.step{border-top:1px solid var(--line);padding-top:1.3rem;}
+
+/* full-bleed tinted band — gives the page a change of surface mid-scroll */
+.band{
+  background:linear-gradient(180deg,#F3ECE2,#EEE5D8);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+
+/* ---------- about ---------- */
+.about{max-width:680px;margin:0 auto;text-align:center;}
+.about p{font-size:1.06rem;color:var(--muted);line-height:1.9;margin:0;}
+.about p + p{margin-top:1.1rem;}
+/* opening line, set larger in the serif to give the section a lead-in */
+.about .about-lead{
+  font-family:"Cormorant Garamond",serif;font-weight:400;
+  font-size:clamp(1.45rem,2.6vw,1.85rem);line-height:1.45;
+  color:var(--ink);margin:0 0 1.5rem;
+}
+.about .about-mark{
+  width:38px;height:1px;border:0;background:var(--terracotta);
+  opacity:.55;margin:2.3rem auto 1.3rem;
+}
+.about .about-sig{
+  font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:1.3rem;color:var(--ink);margin:0;
+}
+
+/* ---------- connect ---------- */
+.connect{text-align:center;}
+.connect-note{max-width:44ch;margin:1rem auto 0;color:var(--muted);font-size:1.02rem;}
+.connect-icons{display:flex;justify-content:center;gap:1.4rem;margin-top:1.8rem;flex-wrap:wrap;}
+.connect-icons a{width:52px;height:52px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(90,70,50,.08);transition:transform .2s,background .2s;}
+.connect-icons a:hover{transform:translateY(-4px);background:var(--terracotta);}
+.connect-icons svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6;transition:stroke .2s;}
+/* color: too — the IG dot and YT triangle are fill="currentColor" */
+.connect-icons a:hover svg{stroke:#fff;color:#fff;}
+
+/* ---------- footer ---------- */
+.footer{border-top:1px solid var(--line);margin-top:2rem;}
+.footer-inner{max-width:var(--max);margin:0 auto;padding:2rem;text-align:center;color:var(--muted);font-size:.85rem;}
+.footer-inner .made{font-family:"Cormorant Garamond",serif;font-size:1.05rem;color:var(--ink);margin:0 0 .3rem;}
+.footer-inner p{margin:.2rem 0;}
+
+/* ---------- scroll animation ----------
+   Content is visible by default (no-JS / no-support safe).
+   When JS is available we add .js-anim to <html>, which arms the
+   hidden state; the observer then reveals each block on scroll. */
+.js-anim .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.js-anim .reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none;}}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  /* margin:0 not auto — these sit under left-aligned section heads, so
+     centring them leaves the heading and the content visibly out of line */
+  .card-grid{grid-template-columns:1fr;gap:2rem;max-width:440px;margin:0;}
+  .steps{grid-template-columns:1fr;gap:1.8rem;max-width:440px;margin:0;}
+}
+@media (max-width:760px){
+  .hero-grid{grid-template-columns:1fr;gap:1rem;}
+  .hero-portrait{order:-1;max-width:320px;margin:0 auto;}
+  .hero{padding:2rem 0 3.5rem;}
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,300px);
+    background:var(--bg);flex-direction:column;align-items:flex-start;
+    padding:5rem 2rem;gap:1.4rem;transform:translateX(100%);
+    /* hidden + pointer-events:none so the closed drawer can neither take
+       tab focus nor swallow taps aimed at the button underneath it.
+       visibility flips at the END of the slide-out (0s delayed .3s). */
+    visibility:hidden;pointer-events:none;
+    transition:transform .3s ease,visibility 0s linear .3s;
+    box-shadow:-8px 0 30px rgba(0,0,0,.08);z-index:60;}
+  .nav-links.open{transform:none;visibility:visible;pointer-events:auto;
+    transition:transform .3s ease,visibility 0s;}
+  section[id],#top{scroll-margin-top:76px;}
+  .nav-links a.txt{font-size:1.05rem;padding:.35rem 0;}
+  /* gutters: 1.75rem keeps the step hairlines clear of the screen edges */
+  .wrap{padding:0 1.75rem;}
+  .nav-inner{padding:1.1rem 1.75rem;}
+  .section{padding:3.4rem 0;}
+  .section-head{margin-bottom:2.2rem;}
+  .footer-inner{padding:1.8rem 1.5rem;}
+  .hamburger{display:block;z-index:70;}
+  .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.active span:nth-child(2){opacity:0;}
+  .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.25);opacity:0;
+    pointer-events:none;transition:opacity .3s;z-index:55;}
+  .nav-backdrop.show{opacity:1;pointer-events:auto;}
+}
+:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brandmark">Sooneeta Keeratee</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navlinks" aria-label="Primary">
+      <a href="#brands" class="txt">Brands</a>
+      <a href="#order" class="txt">Ordering</a>
+      <a href="#about" class="txt">About</a>
+      <a href="#connect" class="txt">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<span id="top"></span>
+
+<!-- ============ HERO ============ -->
+<section class="hero wrap">
+  <div class="hero-grid">
+    <div class="hero-text reveal">
+      <p class="hero-eyebrow">Welcome</p>
+      <h1 class="hero-title">Hi, I'm<br>Sooneeta<br>Keeratee.</h1>
+      <p class="hero-copy">I create handmade products, share personal style, and tell stories through video. <strong>Three passions. One creative journey.</strong></p>
+      <a href="#brands" class="btn">Explore My Brands
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="hero-portrait reveal">
+      <img src="portrait.png" alt="Portrait of Sooneeta Keeratee" width="494" height="494">
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRANDS ============ -->
+<section class="section wrap" id="brands">
+  <div class="section-head left reveal">
+    <p class="section-eyebrow">My Brands</p>
+    <h2 class="section-title">Three worlds, one creator</h2>
+  </div>
+  <div class="card-grid">
+
+    <a class="card reveal" style="--accent:var(--clay);" href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener">
+      <div class="card-media">
+        <!-- decorative: looping yarn + a wound ball. aria-hidden — the card title and
+             description carry the meaning, so screen readers should skip the art. -->
+        <svg class="card-art" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="artHandmade" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f7e9d9"/><stop offset="1" stop-color="#e2c4a2"/>
+          </linearGradient></defs>
+          <rect width="320" height="220" fill="url(#artHandmade)"/>
+          <g fill="none" stroke="#b5651d" stroke-linecap="round">
+            <!-- background: loose thread -->
+            <g opacity=".16" stroke-width="2.5">
+              <path d="M-20 34 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
+              <path d="M-20 74 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
+              <path d="M-20 114 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
+              <path d="M-20 154 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
+              <path d="M-20 194 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
+            </g>
+            <!-- mark: ball of yarn with a crochet hook -->
+            <g opacity=".62" stroke-width="3" stroke-linejoin="round">
+              <circle cx="148" cy="126" r="38"/>
+              <path d="M117 112 c22 16 50 18 66 0"/>
+              <path d="M112 130 c26 14 56 10 70 -10"/>
+              <path d="M122 152 c22 10 46 6 58 -12"/>
+              <path d="M176 100 L206 68"/>
+              <path d="M206 68 c6 -7 15 -5 16 3 c1 8 -7 12 -13 9"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Handmade Shop</span>
+        <h3 class="card-name">Handmade by Soonee</h3>
+        <p class="card-desc">Crochet, candles, bouquets and accessories — made to order.</p>
+        <span class="card-cta">Explore <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card reveal" style="--accent:var(--rose);" href="https://www.instagram.com/mikkifung_wears" target="_blank" rel="noopener">
+      <div class="card-media">
+        <!-- decorative: falling folds of draped fabric -->
+        <svg class="card-art" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="artFashion" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f8ebee"/><stop offset="1" stop-color="#dfbfc8"/>
+          </linearGradient></defs>
+          <rect width="320" height="220" fill="url(#artFashion)"/>
+          <!-- background: folds of draped fabric -->
+          <g fill="#c07f8e">
+            <path opacity=".13" d="M-30 220 C 30 150, 10 90, 60 -10 L 120 -10 C 80 90, 100 150, 40 220 Z"/>
+            <path opacity=".10" d="M80 220 C 140 150, 120 90, 170 -10 L 230 -10 C 190 90, 210 150, 150 220 Z"/>
+            <path opacity=".08" d="M190 220 C 250 150, 230 90, 280 -10 L 340 -10 C 300 90, 320 150, 260 220 Z"/>
+          </g>
+          <!-- mark: a hanger — reads as "clothing" without depicting a garment she stocks -->
+          <g fill="none" stroke="#c07f8e" opacity=".6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M160 86 L160 68 q0 -12 -12 -12 q-10 0 -10 10"/>
+            <path d="M160 86 L108 132 L212 132 Z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Fashion Shop</span>
+        <h3 class="card-name">Mikki Fung Wears</h3>
+        <p class="card-desc">Everyday clothing, new pieces often — shipped worldwide.</p>
+        <span class="card-cta">Discover <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card reveal" style="--accent:var(--red);" href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener">
+      <div class="card-media">
+        <!-- decorative: broadcast rings radiating from a play mark -->
+        <svg class="card-art" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="artVideo" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f9e8e5"/><stop offset="1" stop-color="#e5bab4"/>
+          </linearGradient></defs>
+          <rect width="320" height="220" fill="url(#artVideo)"/>
+          <g fill="none" stroke="#c4302b" stroke-width="2.5">
+            <circle cx="160" cy="110" r="38" opacity=".34"/>
+            <circle cx="160" cy="110" r="62" opacity=".26"/>
+            <circle cx="160" cy="110" r="86" opacity=".18"/>
+            <circle cx="160" cy="110" r="110" opacity=".11"/>
+          </g>
+          <path d="M150 96 l28 14 -28 14 z" fill="#c4302b" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">YouTube Channel</span>
+        <h3 class="card-name">Sooneeta Keeratee</h3>
+        <p class="card-desc">Vlogs and shorts from everyday life.</p>
+        <span class="card-cta">Watch <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============ HOW TO ORDER ============ -->
+<section class="section wrap" id="order">
+  <div class="section-head left reveal">
+    <p class="section-eyebrow">Ordering</p>
+    <h2 class="section-title">How it works</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <span class="step-n">01</span>
+      <h3>Have a look</h3>
+      <p>Everything currently available is on the Instagram grids — new pieces go up there first.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-n">02</span>
+      <h3>Send a message</h3>
+      <p>Orders are taken by DM. Message the shop to buy something, ask about a custom piece, or check what's in stock.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-n">03</span>
+      <h3>Posted to you</h3>
+      <p>Wrapped by hand and sent straight to you — worldwide shipping available.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<div class="band">
+<section class="section wrap" id="about">
+  <div class="section-head reveal">
+    <p class="section-eyebrow">About</p>
+    <h2 class="section-title">How it all started</h2>
+  </div>
+  <div class="about reveal">
+    <p class="about-lead">It started with a hook, a length of yarn, and a quiet evening.</p>
+    <p>A crocheted flower that didn't need to exist. A candle poured for a friend. A bouquet wrapped for someone's birthday, an outfit put together just so, a small moment worth filming. None of it was a plan — it was just what I loved doing.</p>
+    <p>Those little joys grew into three brands, all of them mine. Some of it I make by hand. Some of it I choose because I'd wear it myself. Either way, I'll get it to you wherever you are, with the same belief behind it: that the things we keep around us should feel warm, honest, and a little bit personal.</p>
+    <hr class="about-mark">
+    <p class="about-sig">— Sooneeta</p>
+  </div>
+</section>
+</div>
+
+<!-- ============ CONNECT ============ -->
+<section class="section wrap connect" id="connect">
+  <div class="section-head reveal">
+    <p class="section-eyebrow">Connect</p>
+    <h2 class="section-title">Let's keep in touch</h2>
+    <p class="connect-note">Follow along for new pieces, behind-the-scenes moments, and everyday inspiration.</p>
+  </div>
+  <div class="connect-icons reveal">
+    <a href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://www.tiktok.com/@keeratee038" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M15 4c.5 2.5 2 4 4.5 4.3v3C17 11 15.5 10 15 9.5V15a5 5 0 11-5-5v3a2 2 0 102 2V4z"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="made">Made with love.</p>
+    <p>© 2026 Sooneeta Keeratee. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// nav blur on scroll
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+// hamburger menu
+const ham = document.getElementById('hamburger');
+const links = document.getElementById('navlinks');
+const backdrop = document.getElementById('navBackdrop');
+function setMenu(open){
+  links.classList.toggle('open', open);
+  ham.classList.toggle('active', open);
+  backdrop.classList.toggle('show', open);
+  ham.setAttribute('aria-expanded', open ? 'true':'false');
+  ham.setAttribute('aria-label', open ? 'Close menu':'Open menu');
+}
+function closeMenu(){ setMenu(false); }
+ham.addEventListener('click', ()=> setMenu(!links.classList.contains('open')));
+backdrop.addEventListener('click', closeMenu);
+// Scroll is computed and driven manually. Neither the browser's default
+// anchor navigation nor scrollIntoView survived closing the drawer on
+// mobile, so we work out the pixel offset and call window.scrollTo.
+function scrollToTarget(target){
+  const headerH = nav ? nav.getBoundingClientRect().height : 0;
+  const y = target.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
+  const top = Math.max(0, y);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try {
+    window.scrollTo({top: top, behavior: reduce ? 'auto' : 'smooth'});
+  } catch(err) {
+    window.scrollTo(0, top); // older browsers without the options object
+  }
+}
+
+function handleNavClick(e){
+  const href = this.getAttribute('href') || '';
+  if(!href.startsWith('#')) { closeMenu(); return; }
+  const target = document.querySelector(href);
+  if(!target) { closeMenu(); return; }
+  e.preventDefault();
+  closeMenu();
+  // next frame, so the drawer's class change is applied before we measure
+  requestAnimationFrame(()=> scrollToTarget(target));
+  history.replaceState(null, '', href);
+}
+
+links.querySelectorAll('a').forEach(a=> a.addEventListener('click', handleNavClick));
+document.querySelectorAll('.btn[href^="#"], .brandmark[href^="#"]').forEach(a=> a.addEventListener('click', handleNavClick));
+// Escape closes the drawer and returns focus to the button that opened it
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape' && links.classList.contains('open')){ closeMenu(); ham.focus(); }
+});
+
+// fade-up on scroll — only arm hidden state if IntersectionObserver exists
+if('IntersectionObserver' in window){
+  document.documentElement.classList.add('js-anim');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12, rootMargin:'0px 0px -5% 0px'});
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el=>io.observe(el));
+  // safety net: after 3s, force-reveal anything still hidden (e.g. observer missed)
+  setTimeout(()=>reveals.forEach(el=>el.classList.add('in')), 3000);
+}
+</script>
+</body>
+</html>
