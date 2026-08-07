@@ -57,9 +57,9 @@
   --radius:20px;
 }
 *{box-sizing:border-box;}
-/* No scroll-behavior here on purpose. Smooth scrolling is driven entirely
-   from JS (window.scrollTo) so the CSS and the script can't fight over it —
-   a browser-managed smooth scroll was being dropped on mobile. */
+/* scroll-behavior:smooth is deliberately NOT set. On iOS WebKit a smooth
+   anchor scroll was being dropped when the nav drawer closed. Instant
+   jumps are reliable; section offsets come from scroll-margin-top below. */
 body{
   margin:0;color:var(--ink);
   /* two very soft warm washes so the page isn't a dead flat colour */
@@ -488,35 +488,15 @@ function setMenu(open){
 function closeMenu(){ setMenu(false); }
 ham.addEventListener('click', ()=> setMenu(!links.classList.contains('open')));
 backdrop.addEventListener('click', closeMenu);
-// Scroll is computed and driven manually. Neither the browser's default
-// anchor navigation nor scrollIntoView survived closing the drawer on
-// mobile, so we work out the pixel offset and call window.scrollTo.
-function scrollToTarget(target){
-  const headerH = nav ? nav.getBoundingClientRect().height : 0;
-  const y = target.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
-  const top = Math.max(0, y);
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  try {
-    window.scrollTo({top: top, behavior: reduce ? 'auto' : 'smooth'});
-  } catch(err) {
-    window.scrollTo(0, top); // older browsers without the options object
-  }
-}
-
-function handleNavClick(e){
-  const href = this.getAttribute('href') || '';
-  if(!href.startsWith('#')) { closeMenu(); return; }
-  const target = document.querySelector(href);
-  if(!target) { closeMenu(); return; }
-  e.preventDefault();
-  closeMenu();
-  // next frame, so the drawer's class change is applied before we measure
-  requestAnimationFrame(()=> scrollToTarget(target));
-  history.replaceState(null, '', href);
-}
-
-links.querySelectorAll('a').forEach(a=> a.addEventListener('click', handleNavClick));
-document.querySelectorAll('.btn[href^="#"], .brandmark[href^="#"]').forEach(a=> a.addEventListener('click', handleNavClick));
+// Let the browser do the scrolling. Its own anchor navigation is the most
+// reliable path on iOS WebKit (which is what every iPhone browser runs,
+// Chrome included). We do NOT preventDefault and we do NOT scroll manually.
+// The original bug was only that closing the drawer synchronously hid the
+// tapped link and cancelled the navigation — so defer the close instead.
+// Section offsets are handled by scroll-margin-top in the CSS.
+links.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click', ()=> setTimeout(closeMenu, 60));
+});
 // Escape closes the drawer and returns focus to the button that opened it
 document.addEventListener('keydown', e=>{
   if(e.key === 'Escape' && links.classList.contains('open')){ closeMenu(); ham.focus(); }
