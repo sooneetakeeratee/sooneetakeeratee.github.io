@@ -257,8 +257,12 @@ section[id],#top{scroll-margin-top:92px;}
   .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .hamburger.active span:nth-child(2){opacity:0;}
   .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  /* z-index MUST stay below .nav's 50. The drawer lives inside <header>,
+     which creates a stacking context at 50 — so the drawer can never rise
+     above 50 in the document, no matter what its own z-index says. A
+     backdrop at 55 therefore covers the drawer and eats every tap. */
   .nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.25);opacity:0;
-    pointer-events:none;transition:opacity .3s;z-index:55;}
+    pointer-events:none;transition:opacity .3s;z-index:45;}
   .nav-backdrop.show{opacity:1;pointer-events:auto;}
 }
 :focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
