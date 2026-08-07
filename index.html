@@ -133,9 +133,14 @@ section[id],#top{scroll-margin-top:92px;}
   background:radial-gradient(circle at 52% 46%,rgba(192,106,68,.20),rgba(192,127,142,.13) 48%,transparent 72%);
   z-index:0;
 }
-/* true cut-out — no mask needed, the alpha channel does the work.
-   <picture> is inline by default, so it needs display:block too. */
-.hero-portrait picture{display:block;position:relative;z-index:1;}
+/* The source photo is a headshot cropped straight across at the chest.
+   Framing it in an arch makes that edge read as the frame's bottom rather
+   than a guillotined photo, and the tint fills in behind the cut-out. */
+.hero-portrait picture{
+  display:block;position:relative;z-index:1;overflow:hidden;
+  border-radius:52% 52% 14px 14px / 40% 40% 14px 14px;
+  background:linear-gradient(178deg,rgba(192,127,142,.20),rgba(192,106,68,.13) 62%,rgba(192,106,68,.07));
+}
 .hero-portrait img{width:100%;height:auto;display:block;}
 
 /* ---------- section shell ---------- */
@@ -174,6 +179,9 @@ section[id],#top{scroll-margin-top:92px;}
 .step-n{
   font-family:"Cormorant Garamond",serif;font-size:2.1rem;font-weight:500;
   color:var(--terracotta);line-height:1;display:block;margin-bottom:.7rem;
+  /* Cormorant defaults to old-style figures, which render 01 as something
+     closer to "OI". Lining figures make them read as numbers. */
+  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1;
 }
 .step h3{
   font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:500;
@@ -210,14 +218,19 @@ section[id],#top{scroll-margin-top:92px;}
 /* ---------- connect ---------- */
 .connect{text-align:center;}
 .connect-note{max-width:44ch;margin:1rem auto 0;color:var(--muted);font-size:1.02rem;}
-.connect-icons{display:flex;justify-content:center;gap:1.4rem;margin-top:1.8rem;flex-wrap:wrap;}
-.connect-icons a{width:52px;height:52px;border-radius:50%;background:#fff;
+.connect-icons{display:flex;justify-content:center;gap:2.4rem;margin-top:2.2rem;flex-wrap:wrap;}
+.connect-icons a{display:flex;flex-direction:column;align-items:center;gap:.75rem;text-decoration:none;}
+.connect-icons .ring{width:60px;height:60px;border-radius:50%;background:#fff;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 18px rgba(90,70,50,.08);transition:transform .2s,background .2s;}
-.connect-icons a:hover{transform:translateY(-4px);background:var(--terracotta);}
-.connect-icons svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6;transition:stroke .2s;}
+  box-shadow:0 6px 18px rgba(90,70,50,.08);transition:transform .2s,background .2s,box-shadow .2s;}
+.connect-icons a:hover .ring{transform:translateY(-4px);background:var(--terracotta);
+  box-shadow:0 12px 26px rgba(192,106,68,.28);}
+.connect-icons svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:1.6;transition:stroke .2s;}
 /* color: too — the IG dot and YT triangle are fill="currentColor" */
-.connect-icons a:hover svg{stroke:#fff;color:#fff;}
+.connect-icons a:hover .ring svg{stroke:#fff;color:#fff;}
+.connect-icons .label{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);transition:color .2s;}
+.connect-icons a:hover .label{color:var(--terracotta);}
 
 /* ---------- footer ---------- */
 .footer{border-top:1px solid var(--line);margin-top:2rem;}
@@ -472,9 +485,18 @@ section[id],#top{scroll-margin-top:92px;}
     <p class="connect-note">Follow along for new pieces, behind-the-scenes moments, and everyday inspiration.</p>
   </div>
   <div class="connect-icons reveal">
-    <a href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-    <a href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
-    <a href="https://www.tiktok.com/@keeratee038" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M15 4c.5 2.5 2 4 4.5 4.3v3C17 11 15.5 10 15 9.5V15a5 5 0 11-5-5v3a2 2 0 102 2V4z"/></svg></a>
+    <a href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener">
+      <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+      <span class="label">Instagram</span>
+    </a>
+    <a href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener">
+      <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="label">YouTube</span>
+    </a>
+    <a href="https://www.tiktok.com/@keeratee038" target="_blank" rel="noopener">
+      <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4c.5 2.5 2 4 4.5 4.3v3C17 11 15.5 10 15 9.5V15a5 5 0 11-5-5v3a2 2 0 102 2V4z"/></svg></span>
+      <span class="label">TikTok</span>
+    </a>
   </div>
 </section>
 
