@@ -19,22 +19,25 @@
 <title>Sooneeta Keeratee</title>
 
 <!-- ===== social preview =====
-     URLs point at https://sooneetakeeratee.netlify.app/ (Netlify, served at the root)
+     URLs point at https://sooneetakeeratee.github.io/ (GitHub Pages user site, root)
      If the repo is ever renamed or moved to a custom domain, update the
      canonical, og:url, og:image and twitter:image below to match —
      og:image must stay an ABSOLUTE url or the preview picture won't show. -->
-<link rel="canonical" href="https://sooneetakeeratee.netlify.app/">
+<link rel="canonical" href="https://sooneetakeeratee.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sooneeta Keeratee">
 <meta property="og:title" content="Sooneeta Keeratee">
 <meta property="og:description" content="Handmade crochet, candles and bouquets, everyday fashion, and stories through video — three brands, made and chosen in Nepal.">
-<meta property="og:url" content="https://sooneetakeeratee.netlify.app/">
-<meta property="og:image" content="https://sooneetakeeratee.netlify.app/portrait.png">
-<meta property="og:image:alt" content="Portrait of Sooneeta Keeratee">
+<meta property="og:url" content="https://sooneetakeeratee.github.io/">
+<meta property="og:image" content="https://sooneetakeeratee.github.io/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sooneeta Keeratee — handmade, fashion and video">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sooneeta Keeratee">
 <meta name="twitter:description" content="Handmade crochet, candles and bouquets, everyday fashion, and stories through video.">
-<meta name="twitter:image" content="https://sooneetakeeratee.netlify.app/portrait.png">
+<meta name="twitter:image" content="https://sooneetakeeratee.github.io/og-image.jpg">
 <meta name="theme-color" content="#F8F5F1">
 
 <!-- favicon: inline SVG monogram, no extra file to upload -->
@@ -93,16 +96,21 @@ section[id],#top{scroll-margin-top:92px;}
 }
 .nav-inner{max-width:var(--max);margin:0 auto;padding:1.3rem 2rem;
   display:flex;align-items:center;justify-content:space-between;}
-.brandmark{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:600;text-decoration:none;letter-spacing:.01em;}
+.brandmark{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:600;text-decoration:none;letter-spacing:.01em;
+  display:inline-block;padding:.25rem 0;} /* padding = 44px touch target */
 .nav-links{display:flex;align-items:center;gap:1.7rem;}
 .nav-links a{text-decoration:none;font-size:.84rem;letter-spacing:.05em;color:var(--ink);font-weight:400;transition:color .15s;}
 .nav-links a.txt:hover{color:var(--terracotta);}
 /* position:relative so the z-index in the mobile rule actually applies */
-.hamburger{display:none;position:relative;background:none;border:none;cursor:pointer;padding:.5rem;margin:-.5rem;}
+.hamburger{display:none;position:relative;background:none;border:none;cursor:pointer;padding:.65rem;margin:-.65rem;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:.3s;}
 
 /* ---------- hero ---------- */
-.hero{padding:3.5rem 0 5rem;}
+/* overflow:hidden clips the decorative portrait glow, whose negative
+   inset otherwise pushes the page 25-33px wider than the viewport
+   between 761px and 1180px. The glow has already faded to transparent
+   by the clip edge, so nothing visible is lost. */
+.hero{padding:3.5rem 0 5rem;overflow:hidden;}
 .hero-grid{display:grid;grid-template-columns:1fr 40%;gap:2rem;align-items:center;}
 .hero-eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;color:var(--terracotta);font-weight:500;margin:0 0 1.4rem;}
 .hero-title{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(3rem,6vw,5rem);line-height:1;margin:0 0 1.8rem;letter-spacing:.005em;}
@@ -125,8 +133,10 @@ section[id],#top{scroll-margin-top:92px;}
   background:radial-gradient(circle at 52% 46%,rgba(192,106,68,.20),rgba(192,127,142,.13) 48%,transparent 72%);
   z-index:0;
 }
-/* true cut-out PNG — no mask needed, the alpha channel does the work */
-.hero-portrait img{width:100%;height:auto;display:block;position:relative;z-index:1;}
+/* true cut-out — no mask needed, the alpha channel does the work.
+   <picture> is inline by default, so it needs display:block too. */
+.hero-portrait picture{display:block;position:relative;z-index:1;}
+.hero-portrait img{width:100%;height:auto;display:block;}
 
 /* ---------- section shell ---------- */
 .section{padding:5rem 0;}
@@ -246,7 +256,8 @@ section[id],#top{scroll-margin-top:92px;}
   .nav-links.open{transform:none;visibility:visible;pointer-events:auto;
     transition:transform .3s ease,visibility 0s;}
   section[id],#top{scroll-margin-top:76px;}
-  .nav-links a.txt{font-size:1.05rem;padding:.35rem 0;}
+  /* .5rem padding brings each link to a 44px touch target */
+  .nav-links a.txt{font-size:1.05rem;padding:.5rem 0;}
   /* gutters: 1.75rem keeps the step hairlines clear of the screen edges */
   .wrap{padding:0 1.75rem;}
   .nav-inner{padding:1.1rem 1.75rem;}
@@ -300,7 +311,10 @@ section[id],#top{scroll-margin-top:92px;}
         <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="hero-portrait reveal">
-      <img src="portrait.png" alt="Portrait of Sooneeta Keeratee" width="494" height="494">
+      <picture>
+        <source srcset="portrait.webp" type="image/webp">
+        <img src="portrait.png" alt="Portrait of Sooneeta Keeratee" width="494" height="494" fetchpriority="high" decoding="async">
+      </picture>
     </div>
   </div>
 </section>
