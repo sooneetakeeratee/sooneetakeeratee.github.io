@@ -167,6 +167,8 @@ em{font-style:italic;}
   border-top:1px solid #EFE6DC;min-height:44px;font-weight:400;}
 .card .handle:hover .arrow{transform:translate(2px,-2px);}
 .card .handle .arrow{transition:transform .2s;}
+.card .open-line{margin:2px 0 0;display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--ink);font-weight:400;line-height:1.45;}
+.card .open-line svg{flex:none;width:16px;height:16px;margin-top:2px;fill:none;stroke:var(--rose);stroke-width:1.8;stroke-linecap:round;}
 .c1 .card-media{background:#F1DCC6;} .c1 .no,.c1 .cat,.c1 .handle{color:var(--accent-dk);}
 .c2 .card-media{background:#EFD3DA;} .c2 .no,.c2 .cat,.c2 .handle{color:var(--rose);}
 .c3 .card-media{background:#F0D0C8;} .c3 .no,.c3 .cat,.c3 .handle{color:var(--red);}
@@ -202,6 +204,12 @@ em{font-style:italic;}
 .faq-list details p{margin:-6px 0 24px;max-width:620px;color:var(--body);}
 .faq-list details strong{color:var(--ink);font-weight:500;}
 .faq-list details a{color:var(--accent);font-weight:400;display:inline-flex;align-items:center;min-height:44px;padding:0 2px;}
+
+.faq-list .hours{list-style:none;margin:-10px 0 14px;padding:14px 18px;max-width:360px;background:var(--sand);border-radius:16px;}
+.faq-list .hours li{display:flex;justify-content:space-between;gap:16px;padding:4px 0;color:var(--ink);font-weight:400;}
+.faq-list .hours li span:last-child{white-space:nowrap;}
+.faq-list .hours li.off{color:var(--muted);}
+.faq-list details p.hours-note{margin:0 0 24px;font-size:14px;color:var(--muted);}
 
 /* ---------- about ---------- */
 .about{padding-bottom:clamp(80px,10vw,120px);display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,64px);align-items:flex-start;}
@@ -315,8 +323,13 @@ em{font-style:italic;}
 {"@type":"Question","name":"How do I pay?","acceptedAnswer":{"@type":"Answer","text":"Payment is by bank transfer; details are sent by DM once your order is confirmed."}},
 {"@type":"Question","name":"Do you take custom orders?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tell us what you have in mind and we will make it for you."}},
 {"@type":"Question","name":"How much do things cost?","acceptedAnswer":{"@type":"Answer","text":"Prices start from Rs 500 and depend on the product."}},
-{"@type":"Question","name":"Can I visit the Mikki Fung shop?","acceptedAnswer":{"@type":"Answer","text":"Yes, in Dhumbarahi, Pipalbot, Kathmandu. Closed on Saturdays."}},
+{"@type":"Question","name":"Can I visit the Mikki Fung shop?","acceptedAnswer":{"@type":"Answer","text":"Yes, at Pipalbot, Dhumbarahi, Kathmandu 44600. Open Sunday to Friday, 10 AM to 7 PM; closed on Saturday."}},
 {"@type":"Question","name":"Can I return or exchange an item?","acceptedAnswer":{"@type":"Answer","text":"All sales are final; there are no returns or exchanges."}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ClothingStore","name":"Mikki Fung Wears","address":{"@type":"PostalAddress","streetAddress":"Pipalbot, Dhumbarahi","addressLocality":"Kathmandu","addressRegion":"Bagmati Province","postalCode":"44600","addressCountry":"NP"},
+"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"}],
+"sameAs":["https://www.instagram.com/mikkifung_wears"],"url":"https://sooneetakeeratee.github.io/"}
 </script>
 </head>
 <body>
@@ -415,6 +428,7 @@ em{font-style:italic;}
         <p class="cat">Fashion shop</p>
         <h3>Mikki Fung Wears</h3>
         <p class="desc">Everyday clothing, new pieces often — visit the shop or order by DM. Shipped worldwide.</p>
+        <p class="open-line"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Shop open Sun–Fri, 10 AM – 7 PM · Pipalbot, Dhumbarahi</p>
         <a class="handle" href="https://www.instagram.com/mikkifung_wears" target="_blank" rel="noopener">@mikkifung_wears <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       </div>
     </article>
@@ -479,7 +493,12 @@ em{font-style:italic;}
     <details><summary>How much do things cost?</summary>
       <p>Prices start from <strong>Rs 500</strong> and depend on the product and size. Message us with what you like and we'll give you an exact price.</p></details>
     <details><summary>Can I visit the Mikki Fung shop?</summary>
-      <p>Yes — the shop is at <strong>Pipalbot, Dhumbarahi, Kathmandu 44600</strong>. We're <strong>closed on Saturdays</strong>. <a href="https://www.google.com/maps/search/?api=1&amp;query=Mikkifung+wears+Pipalbot+Kathmandu" target="_blank" rel="noopener">Open in Maps</a></p></details>
+      <p>Yes — the shop is at <strong>Pipalbot, Dhumbarahi, Kathmandu 44600</strong>. <a href="https://www.google.com/maps/search/?api=1&amp;query=Mikkifung+wears+Pipalbot+Kathmandu" target="_blank" rel="noopener">Open in Maps</a></p>
+      <ul class="hours" aria-label="Opening hours">
+        <li><span>Sunday – Friday</span><span>10 AM – 7 PM</span></li>
+        <li class="off"><span>Saturday</span><span>Closed</span></li>
+      </ul>
+      <p class="hours-note">Hours may change on festival days — send a DM before visiting.</p></details>
     <details><summary>Can I return or exchange an item?</summary>
       <p>All sales are final — we're not able to offer <strong>returns or exchanges</strong>. If you're unsure about a size, colour or detail, please ask us before you order and we'll happily send more photos.</p></details>
   </div>
