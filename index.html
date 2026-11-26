@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <!--
   ===========================================================
-  SOONEETA KEERATEE — personal multi-brand site
-  Single-file build (index.html) + images in the same folder.
-  Only image file: portrait.png. The three brand cards use inline SVG art
-  (decorative, aria-hidden) instead of photos — swap in real product shots
-  whenever they exist; see the card-media blocks.
-  The hero portrait is a true cut-out (transparent PNG) — the old
-  radial-mask blend was removed, the alpha channel handles the edges.
-  Contact is via social DM (Instagram / TikTok) — no email icon by design.
+  SOONEETA KEERATEE — personal multi-brand site · v2 (refresh)
+  Single file + images in the same folder (portrait.webp / portrait.png,
+  og-image-v2.jpg). Brand-card photos live in images/.
+  Contact is via social DM (Instagram / TikTok / Facebook) — no email by design.
+  Previous version kept in _extras/index-old.html (not uploaded).
   ===========================================================
 -->
 <html lang="en">
@@ -18,18 +15,13 @@
 <meta name="description" content="Sooneeta Keeratee — handmade products, personal style, and stories through video. One creative journey.">
 <title>Sooneeta Keeratee</title>
 
-<!-- ===== social preview =====
-     URLs point at https://sooneetakeeratee.github.io/ (GitHub Pages user site, root)
-     If the repo is ever renamed or moved to a custom domain, update the
-     canonical, og:url, og:image and twitter:image below to match —
-     og:image must stay an ABSOLUTE url or the preview picture won't show. -->
 <link rel="canonical" href="https://sooneetakeeratee.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sooneeta Keeratee">
 <meta property="og:title" content="Sooneeta Keeratee">
 <meta property="og:description" content="Handmade crochet, candles and bouquets, everyday fashion, and stories through video — three brands, made and chosen in Nepal.">
 <meta property="og:url" content="https://sooneetakeeratee.github.io/">
-<meta property="og:image" content="https://sooneetakeeratee.github.io/og-image.jpg">
+<meta property="og:image" content="https://sooneetakeeratee.github.io/og-image-v2.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -37,496 +29,398 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sooneeta Keeratee">
 <meta name="twitter:description" content="Handmade crochet, candles and bouquets, everyday fashion, and stories through video.">
-<meta name="twitter:image" content="https://sooneetakeeratee.github.io/og-image.jpg">
+<meta name="twitter:image" content="https://sooneetakeeratee.github.io/og-image-v2.jpg">
 <meta name="theme-color" content="#F8F5F1">
-
-<!-- favicon: inline SVG monogram, no extra file to upload -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c06a44'/><path d='M21 11c-1.5-2.5-9-3-9 1.5 0 4 9 2.5 9 7 0 4.5-7.5 4-9 1.5' fill='none' stroke='%23F8F5F1' stroke-width='3.2' stroke-linecap='round'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='16' fill='%23B0562F'/><text x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='20' fill='%23F8F5F1'>S</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --bg:#F8F5F1;
-  --ink:#1F1F1F;
-  --muted:#6C6C6C;
-  --terracotta:#c06a44;
-  --clay:#b5651d;
-  --rose:#c07f8e;
-  --red:#c4302b;
-  --line:#e6ddd2;
-  --max:1180px;
-  --radius:20px;
+  --bg:#F8F5F1; --ink:#2A1E18; --body:#5E5049; --muted:#6B5D54; --line:#E6DDD2;
+  --accent:#B0562F; --accent-dk:#8A4426; --rose:#8E4558; --red:#A12D24;
+  --sand:#EFE4D8; --serif:"Cormorant Garamond",Georgia,serif;
+  --max:1240px; --gut:clamp(20px,3vw,32px);
 }
 *{box-sizing:border-box;}
-/* scroll-behavior:smooth is deliberately NOT set. On iOS WebKit a smooth
-   anchor scroll was being dropped when the nav drawer closed. Instant
-   jumps are reliable; section offsets come from scroll-margin-top below. */
-body{
-  margin:0;color:var(--ink);
-  /* One soft wash, kept on the LEFT. A second wash used to sit top-right,
-     behind the portrait — the hero scrim paints flat cream there, so the
-     two never matched and left a visible horizontal seam. The portrait's
-     own glow supplies the warmth on that side instead. */
-  background:
-    radial-gradient(64% 42% at 6% -6%, rgba(192,106,68,.085), transparent 64%),
-    var(--bg);
-  background-repeat:no-repeat;
-  font-family:"Jost",system-ui,sans-serif;font-weight:300;
-  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
-}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
 a{color:inherit;}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem;}
-/* stop anchor targets landing underneath the sticky header */
-section[id],#top{scroll-margin-top:92px;}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gut);padding-right:var(--gut);}
+section[id]{scroll-margin-top:84px;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px;}
+.eyebrow{margin:0 0 14px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:400;color:var(--accent-dk);}
+.h2{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(38px,4.6vw,64px);line-height:1.04;letter-spacing:-.015em;}
+em{font-style:italic;}
+.arrow{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none;}
 
-/* ---------- sticky nav ---------- */
+/* ---------- nav ---------- */
 .nav{position:sticky;top:0;z-index:50;}
-/* The blur lives on a pseudo-element, NOT on .nav itself. backdrop-filter
-   on .nav would make it the containing block for its position:fixed
-   children — which traps the mobile drawer inside the header bar. */
-.nav::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:rgba(248,245,241,0);
-  transition:background .3s,box-shadow .3s,backdrop-filter .3s;
-}
-.nav.scrolled::before{
-  background:rgba(248,245,241,.72);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  box-shadow:0 1px 0 rgba(0,0,0,.05);
-}
-.nav-inner{max-width:var(--max);margin:0 auto;padding:1.3rem 2rem;
-  display:flex;align-items:center;justify-content:space-between;}
-.brandmark{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:600;text-decoration:none;letter-spacing:.01em;
-  display:inline-block;padding:.25rem 0;} /* padding = 44px touch target */
-.nav-links{display:flex;align-items:center;gap:1.7rem;}
-.nav-links a{text-decoration:none;font-size:.84rem;letter-spacing:.05em;color:var(--ink);font-weight:400;transition:color .15s;}
-.nav-links a.txt:hover{color:var(--terracotta);}
-/* position:relative so the z-index in the mobile rule actually applies */
-.hamburger{display:none;position:relative;background:none;border:none;cursor:pointer;padding:.65rem;margin:-.65rem;}
+.nav::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(248,245,241,0);
+  transition:background .3s,box-shadow .3s;}
+.nav.scrolled::before{background:rgba(248,245,241,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 var(--line);}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:12px var(--gut);display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.brandmark{text-decoration:none;display:flex;align-items:center;gap:12px;min-height:44px;}
+.brandmark .seal{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--bg);display:flex;align-items:center;
+  justify-content:center;font-family:var(--serif);font-size:24px;font-style:italic;flex:none;}
+.brandmark .name{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:.01em;white-space:nowrap;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{text-decoration:none;font-size:15px;letter-spacing:.04em;padding:12px 14px;transition:color .15s;}
+.nav-links a:hover{color:var(--accent);}
+.msg{position:relative;margin-left:8px;}
+.nav-links .pill{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:inherit;font-size:14px;letter-spacing:.06em;font-weight:400;
+  background:var(--ink);color:var(--bg);border-radius:999px;padding:12px 18px 12px 22px;min-height:44px;transition:background .2s;}
+.nav-links .pill:hover,.msg.open .pill{background:var(--accent);color:#fff;}
+.chev{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s;}
+.msg.open .chev{transform:rotate(180deg);}
+.msg-menu{position:absolute;right:0;top:calc(100% + 10px);width:280px;background:#fff;border-radius:20px;padding:10px;
+  box-shadow:0 22px 50px rgba(42,30,24,.16),0 0 0 1px var(--line);opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .2s,transform .2s,visibility 0s linear .2s;z-index:80;}
+.msg.open .msg-menu{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s,visibility 0s;}
+.msg-title{margin:6px 12px 6px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:400;}
+.nav-links .msg-menu a{display:flex;align-items:center;gap:14px;padding:12px;border-radius:14px;font-family:"Jost",sans-serif;font-size:15px;letter-spacing:0;}
+.nav-links .msg-menu a:hover{background:var(--bg);color:var(--ink);}
+.msg-menu b{display:block;font-weight:500;line-height:1.3;}
+.msg-menu small{display:block;font-size:13px;color:var(--muted);line-height:1.3;}
+.msg-menu .sw{width:36px;height:36px;border-radius:50%;flex:none;}
+.dm{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.dm a{text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:999px;
+  background:#fff;font-size:14px;font-weight:400;color:var(--ink);transition:background .2s,color .2s;}
+.dm a:hover{background:var(--ink);color:#fff;}
+.dm .arrow{width:15px;height:15px;}
+.hamburger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;padding:10px;margin-right:-10px;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:.3s;}
+.nav-backdrop{display:none;}
 
 /* ---------- hero ---------- */
-/* overflow:hidden clips the decorative portrait glow, whose negative
-   inset otherwise pushes the page 25-33px wider than the viewport
-   between 761px and 1180px. The glow has already faded to transparent
-   by the clip edge, so nothing visible is lost. */
-/* padding-top/bottom ONLY. The `padding` shorthand here would reset the
-   horizontal gutters .wrap sets above, because this rule comes later. */
-.hero{padding-top:3.5rem;padding-bottom:5rem;overflow:hidden;}
-.hero-grid{display:grid;grid-template-columns:1fr 46%;gap:1.5rem;align-items:center;}
-.hero-eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;color:var(--terracotta);font-weight:500;margin:0 0 1.4rem;}
-.hero-title{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(3rem,6vw,5rem);line-height:1;margin:0 0 1.8rem;letter-spacing:.005em;}
-.hero-copy{font-size:1.08rem;color:var(--muted);max-width:44ch;margin:0 0 2.4rem;}
+.hero{padding-top:clamp(40px,6vw,72px);padding-bottom:clamp(56px,7vw,88px);display:flex;flex-wrap:wrap;align-items:center;gap:56px;}
+.hero-text{flex:1 1 min(480px,100%);min-width:0;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;}
+.hero-eyebrow::before{content:"";width:32px;height:1px;background:var(--accent-dk);}
+.hero h1{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(54px,7.4vw,104px);line-height:.95;letter-spacing:-.02em;}
+.hero h1 em{color:var(--accent);}
+.hero-copy{margin:32px 0 0;max-width:500px;font-size:19px;color:var(--body);}
 .hero-copy strong{color:var(--ink);font-weight:400;}
-.btn{
-  display:inline-flex;align-items:center;gap:.9rem;
-  background:#26211c;color:#f3ece2;text-decoration:none;
-  padding:1.05rem 1.9rem;border-radius:100px;
-  font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:400;
-  transition:background .2s,transform .2s;
-}
-.btn:hover{background:#3c342b;transform:translateY(-2px);}
-.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;transition:transform .2s;}
-.btn:hover svg{transform:translateX(4px);}
-.hero-portrait{position:relative;}
-/* soft glow so the cut-out sits on something instead of floating */
-.hero-portrait::before{
-  content:"";position:absolute;inset:-14% -12% -6%;
-  background:radial-gradient(ellipse 62% 58% at 52% 44%,
-    rgba(192,127,142,.30),rgba(192,106,68,.17) 45%,rgba(192,106,68,.06) 68%,transparent 80%);
-  z-index:0;
-}
-.hero-portrait picture{display:block;position:relative;z-index:1;}
-/* The photo is cropped straight across at the chest. Rather than fading the
-   image to transparent (which turns the black blazer ghost-grey), lay a
-   scrim in the PAGE's own colour over the bottom — she dissolves into the
-   background instead of ending on a line. */
-.hero-portrait::after{
-  /* MUST extend wider than the ::before glow (-12%), or the cream stops
-     before the glow does and leaves a visible vertical step at the bottom */
-  content:"";position:absolute;left:-20%;right:-20%;bottom:-1px;height:34%;
-  background:linear-gradient(to bottom,rgba(248,245,241,0) 0%,rgba(248,245,241,.70) 44%,var(--bg) 82%);
-  /* feather its own left/right edges so the rectangle never shows */
-  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
-  mask-image:linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
-  z-index:2;pointer-events:none;
-}
-.hero-portrait img{width:100%;height:auto;display:block;}
+.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px;}
+.btn{text-decoration:none;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;font-size:14px;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:400;transition:background .2s,color .2s,border-color .2s,transform .2s;}
+.btn-solid{background:var(--accent);color:#fff;}
+.btn-solid:hover{background:var(--accent-dk);transform:translateY(-1px);}
+.btn-line{border:1px solid #CDBFB1;}
+.btn-line:hover{border-color:var(--ink);}
+.facts{display:flex;flex-wrap:wrap;gap:28px 36px;margin-top:56px;padding-top:28px;border-top:1px solid var(--line);}
+.facts .big{margin:0;font-family:var(--serif);font-size:34px;line-height:1;}
+.facts .small{margin:6px 0 0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.hero-portrait{flex:1 1 min(380px,100%);min-width:0;display:flex;justify-content:center;position:relative;}
+.arch{width:100%;max-width:460px;aspect-ratio:4/5;border-radius:999px 999px 28px 28px;background:#EAD7C6;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center;position:relative;}
+.arch::after{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.7);border-radius:999px 999px 18px 18px;pointer-events:none;}
+.arch img{width:100%;height:88%;object-fit:cover;object-position:top center;}
+.badge{position:absolute;left:8px;bottom:24px;background:#fff;border-radius:18px;padding:14px 20px;box-shadow:0 18px 40px rgba(42,30,24,.12);
+  display:flex;align-items:center;gap:12px;font-size:14px;font-weight:400;}
+.badge .dot{width:10px;height:10px;border-radius:50%;background:#3E8E5A;box-shadow:0 0 0 4px rgba(62,142,90,.15);}
 
-/* ---------- section shell ---------- */
-.section{padding-top:5rem;padding-bottom:5rem;}
-.section-head{text-align:center;margin-bottom:3rem;}
-.section-eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.74rem;color:var(--muted);font-weight:500;margin:0;}
-.section-title{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:500;margin:.4rem 0 0;}
+/* ---------- strip ---------- */
+.strip{background:var(--ink);color:#F3E9DF;}
+.strip-inner{padding-top:22px;padding-bottom:22px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 28px;
+  font-family:var(--serif);font-size:clamp(21px,2.2vw,26px);font-style:italic;}
+.strip-inner span.star{color:#D98A63;font-style:normal;font-size:.8em;}
 
-/* ---------- brand cards ---------- */
-.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;}
-.card{
-  display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  background:#fff;border-radius:var(--radius);overflow:hidden;
-  box-shadow:0 8px 30px rgba(90,70,50,.07);
-  transition:transform .25s ease,box-shadow .25s ease;
-}
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(90,70,50,.14);}
-.card:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
-.card-media{aspect-ratio:16/11;overflow:hidden;background:#ece4d9;}
-.card-media img,.card-media .card-art{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
-.card:hover .card-media img,.card:hover .card-media .card-art{transform:scale(1.06);}
-.card-body{padding:1.7rem 1.6rem 1.9rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
-.card-cat{text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;color:var(--accent);font-weight:500;}
-.card-name{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:500;margin:0;}
-.card-desc{font-size:.95rem;color:var(--muted);margin:0;flex:1;}
-.card-cta{margin-top:.6rem;display:inline-flex;align-items:center;gap:.4rem;color:var(--accent);font-size:.9rem;font-weight:400;}
-.card:hover .card-cta{gap:.7rem;}
-.card-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;transition:transform .2s;}
-.card:hover .card-cta svg{transform:translateX(3px);}
+/* ---------- brands ---------- */
+.brands{padding-top:clamp(72px,9vw,112px);padding-bottom:clamp(64px,8vw,96px);}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px;}
+.sec-head .lede{margin:0;max-width:380px;color:var(--body);}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:28px;}
+.card{background:#fff;border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--line);
+  transition:transform .3s ease,box-shadow .3s ease;}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(42,30,24,.10);}
+.card-media{height:260px;display:flex;align-items:center;justify-content:center;position:relative;}
+.card-media .no{position:absolute;top:22px;left:24px;font-family:var(--serif);font-size:22px;font-style:italic;}
+.card-media svg{transition:transform .5s ease;}
+.card:hover .card-media > svg{transform:scale(1.06) rotate(-3deg);}
+.card-media .no{z-index:3;}
+.row3{display:flex;gap:10px;align-items:flex-end;margin-top:22px;}
+.row3 figure{margin:0;padding:4px;background:#fff;border-radius:10px;box-shadow:0 10px 22px rgba(42,30,24,.14);transition:transform .35s ease;}
+.row3 figure:nth-child(2){transform:translateY(-12px);}
+.row3 img{display:block;width:97px;height:130px;object-fit:cover;border-radius:7px;}
+.card:hover .row3 figure{transform:translateY(-4px);}
+.card:hover .row3 figure:nth-child(2){transform:translateY(-16px);}
+.chip{position:absolute;right:16px;top:18px;z-index:3;background:rgba(255,255,255,.92);color:var(--ink);font-size:12px;letter-spacing:.06em;
+  font-weight:400;padding:7px 12px;border-radius:999px;}
+.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .6s ease;}
+.card:hover .cover{transform:scale(1.04);}
+.c3 .card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,0) 38%);pointer-events:none;}
+.c3 .no{color:#fff!important;}
+.play{position:absolute;left:18px;bottom:18px;width:52px;height:52px;z-index:3;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.3);transition:transform .3s;}
+.card:hover .play{transform:scale(1.08);}
+.play svg{width:22px;height:22px;fill:#fff;margin-left:3px;}
+.card-body{padding:30px 30px 32px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.card .cat{margin:0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;}
+.card h3{margin:0;font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.1;}
+.card p.desc{margin:0;color:var(--body);}
+.card .handle{margin-top:auto;padding-top:18px;text-decoration:none;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid #EFE6DC;min-height:44px;font-weight:400;}
+.card .handle:hover .arrow{transform:translate(2px,-2px);}
+.card .handle .arrow{transition:transform .2s;}
+.c1 .card-media{background:#F1DCC6;} .c1 .no,.c1 .cat,.c1 .handle{color:var(--accent-dk);}
+.c2 .card-media{background:#EFD3DA;} .c2 .no,.c2 .cat,.c2 .handle{color:var(--rose);}
+.c3 .card-media{background:#F0D0C8;} .c3 .no,.c3 .cat,.c3 .handle{color:var(--red);}
 
-/* left-aligned section heads — breaks the run of identical centred stacks */
-.section-head.left{text-align:left;}
-
-/* ---------- how to order ---------- */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem;}
-.step-n{
-  font-family:"Cormorant Garamond",serif;font-size:2.1rem;font-weight:500;
-  color:var(--terracotta);line-height:1;display:block;margin-bottom:.7rem;
-  /* Cormorant defaults to old-style figures, which render 01 as something
-     closer to "OI". Lining figures make them read as numbers. */
-  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1;
-}
-.step h3{
-  font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:500;
-  margin:0 0 .5rem;
-}
-.step p{color:var(--muted);font-size:.98rem;margin:0;}
-.step{border-top:1px solid var(--line);padding-top:1.3rem;}
-
-/* full-bleed tinted band — gives the page a change of surface mid-scroll */
-.band{
-  background:linear-gradient(180deg,#F3ECE2,#EEE5D8);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-}
+/* ---------- order ---------- */
+.order{padding-bottom:clamp(72px,9vw,112px);}
+.panel{background:var(--sand);border-radius:36px;padding:clamp(36px,6vw,72px) clamp(22px,5vw,64px);display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,56px);}
+.panel-intro{flex:1 1 min(300px,100%);min-width:0;}
+.panel-intro p{margin:22px 0 0;color:var(--body);max-width:320px;}
+.steps{flex:2 1 min(560px,100%);min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:36px;}
+.step{border-top:1px solid #CDBFB1;padding-top:22px;}
+.step .n{margin:0;font-family:var(--serif);font-size:48px;line-height:1;font-style:italic;color:var(--accent);}
+.step h3{margin:18px 0 8px;font-family:var(--serif);font-weight:600;font-size:26px;}
+.step p{margin:0;color:var(--body);font-size:16px;}
 
 /* ---------- about ---------- */
-.about{max-width:680px;margin:0 auto;text-align:center;}
-.about p{font-size:1.06rem;color:var(--muted);line-height:1.9;margin:0;}
-.about p + p{margin-top:1.1rem;}
-/* opening line, set larger in the serif to give the section a lead-in */
-.about .about-lead{
-  font-family:"Cormorant Garamond",serif;font-weight:400;
-  font-size:clamp(1.45rem,2.6vw,1.85rem);line-height:1.45;
-  color:var(--ink);margin:0 0 1.5rem;
-}
-.about .about-mark{
-  width:38px;height:1px;border:0;background:var(--terracotta);
-  opacity:.55;margin:2.3rem auto 1.3rem;
-}
-.about .about-sig{
-  font-family:"Cormorant Garamond",serif;font-style:italic;
-  font-size:1.3rem;color:var(--ink);margin:0;
-}
+.about{padding-bottom:clamp(80px,10vw,120px);display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,64px);align-items:flex-start;}
+.about-quote{flex:1 1 min(420px,100%);min-width:0;}
+.about-quote blockquote{margin:0;font-family:var(--serif);font-weight:500;font-style:italic;font-size:clamp(34px,4.2vw,58px);line-height:1.08;letter-spacing:-.01em;}
+.about-quote .sig{margin:28px 0 0;font-family:var(--serif);font-size:26px;font-style:italic;color:var(--accent);}
+.about-text{flex:1 1 min(440px,100%);min-width:0;padding-top:44px;font-size:18px;color:#4F423B;}
+.about-text p{margin:0 0 22px;} .about-text p:last-child{margin:0;}
 
 /* ---------- connect ---------- */
-.connect{text-align:center;}
-.connect-note{max-width:44ch;margin:1rem auto 0;color:var(--muted);font-size:1.02rem;}
-.connect-icons{display:flex;justify-content:center;gap:2.4rem;margin-top:2.2rem;flex-wrap:wrap;}
-.connect-icons a{display:flex;flex-direction:column;align-items:center;gap:.75rem;text-decoration:none;}
-.connect-icons .ring{width:60px;height:60px;border-radius:50%;background:#fff;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 18px rgba(90,70,50,.08);transition:transform .2s,background .2s,box-shadow .2s;}
-.connect-icons a:hover .ring{transform:translateY(-4px);background:var(--terracotta);
-  box-shadow:0 12px 26px rgba(192,106,68,.28);}
-.connect-icons svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:1.6;transition:stroke .2s;}
-/* color: too — the IG dot and YT triangle are fill="currentColor" */
-.connect-icons a:hover .ring svg{stroke:#fff;color:#fff;}
-.connect-icons .label{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);transition:color .2s;}
-.connect-icons a:hover .label{color:var(--terracotta);}
+.connect{padding:0 clamp(12px,2vw,32px) 32px;}
+.connect-box{max-width:1376px;margin:0 auto;background:var(--ink);color:#F3E9DF;border-radius:clamp(24px,4vw,40px);
+  padding:clamp(56px,8vw,96px) clamp(20px,4vw,48px);text-align:center;}
+.connect-box .eyebrow{color:#E39A74;}
+.connect-box h2{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(44px,5.4vw,76px);line-height:1;}
+.connect-box h2 em{color:#E39A74;}
+.connect-box .note{margin:22px auto 0;max-width:520px;color:#CFC0B3;}
+.socials{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:48px;}
+.socials a{text-decoration:none;color:#F3E9DF;display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:999px;
+  border:1px solid #5A4A40;font-size:16px;font-weight:400;transition:background .2s,border-color .2s,color .2s;}
+.socials a:hover{background:#F3E9DF;color:var(--ink);border-color:#F3E9DF;}
+.socials svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;}
 
 /* ---------- footer ---------- */
-.footer{border-top:1px solid var(--line);margin-top:2rem;}
-.footer-inner{max-width:var(--max);margin:0 auto;padding:2rem;text-align:center;color:var(--muted);font-size:.85rem;}
-.footer-inner .made{font-family:"Cormorant Garamond",serif;font-size:1.05rem;color:var(--ink);margin:0 0 .3rem;}
-.footer-inner p{margin:.2rem 0;}
+.footer{padding-top:28px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted);}
+.footer p{margin:0;} .footer .made{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink);}
 
-/* ---------- scroll animation ----------
-   Content is visible by default (no-JS / no-support safe).
-   When JS is available we add .js-anim to <html>, which arms the
-   hidden state; the observer then reveals each block on scroll. */
-.js-anim .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+/* ---------- reveal ---------- */
+.js-anim .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
 .js-anim .reveal.in{opacity:1;transform:none;}
-@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none;}}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none;}
+  .card,.card-media svg,.btn,.row3 figure,.cover,.play{transition:none;}}
 
-/* ---------- responsive ---------- */
-@media (max-width:900px){
-  /* margin:0 not auto — these sit under left-aligned section heads, so
-     centring them leaves the heading and the content visibly out of line */
-  .card-grid{grid-template-columns:1fr;gap:2rem;max-width:440px;margin:0;}
-  .steps{grid-template-columns:1fr;gap:1.8rem;max-width:440px;margin:0;}
-}
+/* ---------- phone ---------- */
+@media (max-width:380px){.row3{gap:8px;}.row3 img{width:72px;height:96px;}}
 @media (max-width:760px){
-  .hero-grid{grid-template-columns:1fr;gap:1rem;}
-  .hero-portrait{order:-1;max-width:320px;margin:0 auto;}
-  .hero{padding-top:2.6rem;padding-bottom:3.5rem;}
-  .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,300px);
-    background:var(--bg);flex-direction:column;align-items:flex-start;
-    padding:5rem 2rem;gap:1.4rem;transform:translateX(100%);
-    /* hidden + pointer-events:none so the closed drawer can neither take
-       tab focus nor swallow taps aimed at the button underneath it.
-       visibility flips at the END of the slide-out (0s delayed .3s). */
-    visibility:hidden;pointer-events:none;
-    transition:transform .3s ease,visibility 0s linear .3s;
-    box-shadow:-8px 0 30px rgba(0,0,0,.08);z-index:60;}
-  .nav-links.open{transform:none;visibility:visible;pointer-events:auto;
-    transition:transform .3s ease,visibility 0s;}
-  section[id],#top{scroll-margin-top:76px;}
-  /* .5rem padding brings each link to a 44px touch target */
-  .nav-links a.txt{font-size:1.05rem;padding:.5rem 0;}
-  /* gutters: 1.75rem keeps the step hairlines clear of the screen edges */
-  .wrap{padding:0 1.75rem;}
-  .nav-inner{padding:1.1rem 1.75rem;}
-  .section{padding-top:3.4rem;padding-bottom:3.4rem;}
-  .section-head{margin-bottom:2.2rem;}
-  .footer-inner{padding:1.8rem 1.75rem;}
-  .hamburger{display:block;z-index:70;}
+  .brandmark .name{font-size:21px;}
+  .hamburger{display:block;z-index:70;position:relative;}
   .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .hamburger.active span:nth-child(2){opacity:0;}
   .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  /* z-index MUST stay below .nav's 50. The drawer lives inside <header>,
-     which creates a stacking context at 50 — so the drawer can never rise
-     above 50 in the document, no matter what its own z-index says. A
-     backdrop at 55 therefore covers the drawer and eats every tap. */
-  .nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.25);opacity:0;
-    pointer-events:none;transition:opacity .3s;z-index:45;}
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(80vw,320px);background:var(--bg);flex-direction:column;align-items:stretch;
+    padding:88px 28px 28px;gap:6px;transform:translateX(100%);visibility:hidden;pointer-events:none;
+    transition:transform .3s ease,visibility 0s linear .3s;box-shadow:-8px 0 30px rgba(0,0,0,.08);z-index:60;}
+  .nav-links.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .3s ease,visibility 0s;}
+  .nav-links a{font-family:var(--serif);font-size:28px;padding:8px 0;letter-spacing:0;}
+  .msg{margin:24px 0 0;padding-top:20px;border-top:1px solid var(--line);}
+  .msg .pill{display:none;}
+  .msg-menu{position:static;width:auto;opacity:1;visibility:visible;transform:none;box-shadow:none;padding:0;background:none;transition:none;}
+  .msg-title{margin:0 0 8px;}
+  .nav-links .msg-menu a{padding:10px 0;font-size:16px;}
+  .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(42,30,24,.3);opacity:0;pointer-events:none;transition:opacity .3s;z-index:45;}
   .nav-backdrop.show{opacity:1;pointer-events:auto;}
+  .hero{gap:36px;}
+  .hero-portrait{order:-1;}
+  .arch{max-width:340px;}
+  .btn{flex:1 1 auto;justify-content:center;}
+  .facts{gap:20px 28px;}
+  .facts .big{font-size:28px;}
+  .sec-head{margin-bottom:36px;}
+  .card-media{height:230px;}
+  .about-text{padding-top:0;}
 }
-:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
 </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="brandmark">Sooneeta Keeratee</a>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#top" class="brandmark" aria-label="Sooneeta Keeratee, back to top"><span class="seal" aria-hidden="true">S</span><span class="name">Sooneeta Keeratee</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks"><span></span><span></span><span></span></button>
     <nav class="nav-links" id="navlinks" aria-label="Primary">
-      <a href="#brands" class="txt">Brands</a>
-      <a href="#order" class="txt">Ordering</a>
-      <a href="#about" class="txt">About</a>
-      <a href="#connect" class="txt">Contact</a>
+      <a href="#brands">Brands</a>
+      <a href="#order">How to order</a>
+      <a href="#about">About</a>
+      <a href="#connect">Contact</a>
+      <div class="msg" id="msg">
+        <button class="pill" id="msgBtn" type="button" aria-expanded="false" aria-controls="msgMenu">Message me <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="msg-menu" id="msgMenu">
+          <p class="msg-title">Which shop?</p>
+          <a href="https://ig.me/m/handmade_by_soonee" target="_blank" rel="noopener"><span class="sw" style="background:#F1DCC6"></span><span><b>Handmade by Soonee</b><small>Crochet, candles, bouquets</small></span></a>
+          <a href="https://ig.me/m/mikkifung_wears" target="_blank" rel="noopener"><span class="sw" style="background:#EFD3DA"></span><span><b>Mikki Fung Wears</b><small>Everyday clothing</small></span></a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
 <div class="nav-backdrop" id="navBackdrop"></div>
 
-<span id="top"></span>
-
-<!-- ============ HERO ============ -->
-<section class="hero wrap">
-  <div class="hero-grid">
-    <div class="hero-text reveal">
-      <p class="hero-eyebrow">Welcome</p>
-      <h1 class="hero-title">Hi, I'm<br>Sooneeta<br>Keeratee.</h1>
-      <p class="hero-copy">I create handmade products, share personal style, and tell stories through video. <strong>Three passions. One creative journey.</strong></p>
-      <a href="#brands" class="btn">Explore My Brands
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<main>
+<!-- HERO -->
+<section id="top" class="hero wrap">
+  <div class="hero-text reveal">
+    <p class="eyebrow hero-eyebrow">Handmade · Style · Stories</p>
+    <h1>Hi, I'm Sooneeta <em>Keeratee.</em></h1>
+    <p class="hero-copy">I create handmade products, share personal style, and tell stories through video. <strong>Three passions. One creative journey.</strong></p>
+    <div class="btns">
+      <a href="#brands" class="btn btn-solid">Explore my brands <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#order" class="btn btn-line">How to order</a>
     </div>
-    <div class="hero-portrait reveal">
+    <div class="facts">
+      <div><p class="big">3</p><p class="small">Brands</p></div>
+      <div><p class="big"><em>Made to order</em></p><p class="small">By hand, in Nepal</p></div>
+      <div><p class="big"><em>Worldwide</em></p><p class="small">Shipping</p></div>
+    </div>
+  </div>
+  <div class="hero-portrait reveal">
+    <div class="arch">
       <picture>
         <source srcset="portrait.webp" type="image/webp">
         <img src="portrait.png" alt="Portrait of Sooneeta Keeratee" width="494" height="494" fetchpriority="high" decoding="async">
       </picture>
     </div>
+    <div class="badge"><span class="dot" aria-hidden="true"></span>Taking orders by DM</div>
   </div>
 </section>
 
-<!-- ============ BRANDS ============ -->
-<section class="section wrap" id="brands">
-  <div class="section-head left reveal">
-    <p class="section-eyebrow">My Brands</p>
-    <h2 class="section-title">Three worlds, one creator</h2>
+<!-- STRIP -->
+<div class="strip" aria-label="What I make">
+  <div class="strip-inner wrap">
+    <span>Crochet</span><span class="star" aria-hidden="true">✦</span><span>Candles</span><span class="star" aria-hidden="true">✦</span><span>Bouquets</span><span class="star" aria-hidden="true">✦</span><span>Everyday fashion</span><span class="star" aria-hidden="true">✦</span><span>Vlogs &amp; shorts</span>
   </div>
-  <div class="card-grid">
-
-    <a class="card reveal" style="--accent:var(--clay);" href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener">
-      <div class="card-media">
-        <!-- decorative: looping yarn + a wound ball. aria-hidden — the card title and
-             description carry the meaning, so screen readers should skip the art. -->
-        <svg class="card-art" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-          <defs><linearGradient id="artHandmade" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#f7e9d9"/><stop offset="1" stop-color="#e2c4a2"/>
-          </linearGradient></defs>
-          <rect width="320" height="220" fill="url(#artHandmade)"/>
-          <g fill="none" stroke="#b5651d" stroke-linecap="round">
-            <!-- background: loose thread -->
-            <g opacity=".16" stroke-width="2.5">
-              <path d="M-20 34 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
-              <path d="M-20 74 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
-              <path d="M-20 114 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
-              <path d="M-20 154 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
-              <path d="M-20 194 q30 -30 60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
-            </g>
-            <!-- mark: ball of yarn with a crochet hook -->
-            <g opacity=".62" stroke-width="3" stroke-linejoin="round">
-              <circle cx="148" cy="126" r="38"/>
-              <path d="M117 112 c22 16 50 18 66 0"/>
-              <path d="M112 130 c26 14 56 10 70 -10"/>
-              <path d="M122 152 c22 10 46 6 58 -12"/>
-              <path d="M176 100 L206 68"/>
-              <path d="M206 68 c6 -7 15 -5 16 3 c1 8 -7 12 -13 9"/>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div class="card-body">
-        <span class="card-cat">Handmade Shop</span>
-        <h3 class="card-name">Handmade by Soonee</h3>
-        <p class="card-desc">Crochet, candles, bouquets and accessories — made to order.</p>
-        <span class="card-cta">Explore <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </div>
-    </a>
-
-    <a class="card reveal" style="--accent:var(--rose);" href="https://www.instagram.com/mikkifung_wears" target="_blank" rel="noopener">
-      <div class="card-media">
-        <!-- decorative: falling folds of draped fabric -->
-        <svg class="card-art" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-          <defs><linearGradient id="artFashion" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#f8ebee"/><stop offset="1" stop-color="#dfbfc8"/>
-          </linearGradient></defs>
-          <rect width="320" height="220" fill="url(#artFashion)"/>
-          <!-- background: folds of draped fabric -->
-          <g fill="#c07f8e">
-            <path opacity=".13" d="M-30 220 C 30 150, 10 90, 60 -10 L 120 -10 C 80 90, 100 150, 40 220 Z"/>
-            <path opacity=".10" d="M80 220 C 140 150, 120 90, 170 -10 L 230 -10 C 190 90, 210 150, 150 220 Z"/>
-            <path opacity=".08" d="M190 220 C 250 150, 230 90, 280 -10 L 340 -10 C 300 90, 320 150, 260 220 Z"/>
-          </g>
-          <!-- mark: a hanger — reads as "clothing" without depicting a garment she stocks -->
-          <g fill="none" stroke="#c07f8e" opacity=".6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M160 86 L160 68 q0 -12 -12 -12 q-10 0 -10 10"/>
-            <path d="M160 86 L108 132 L212 132 Z"/>
-          </g>
-        </svg>
-      </div>
-      <div class="card-body">
-        <span class="card-cat">Fashion Shop</span>
-        <h3 class="card-name">Mikki Fung Wears</h3>
-        <p class="card-desc">Everyday clothing, new pieces often — shipped worldwide.</p>
-        <span class="card-cta">Discover <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </div>
-    </a>
-
-    <a class="card reveal" style="--accent:var(--red);" href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener">
-      <div class="card-media">
-        <!-- decorative: broadcast rings radiating from a play mark -->
-        <svg class="card-art" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-          <defs><linearGradient id="artVideo" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#f9e8e5"/><stop offset="1" stop-color="#e5bab4"/>
-          </linearGradient></defs>
-          <rect width="320" height="220" fill="url(#artVideo)"/>
-          <g fill="none" stroke="#c4302b" stroke-width="2.5">
-            <circle cx="160" cy="110" r="38" opacity=".34"/>
-            <circle cx="160" cy="110" r="62" opacity=".26"/>
-            <circle cx="160" cy="110" r="86" opacity=".18"/>
-            <circle cx="160" cy="110" r="110" opacity=".11"/>
-          </g>
-          <path d="M150 96 l28 14 -28 14 z" fill="#c4302b" opacity=".5"/>
-        </svg>
-      </div>
-      <div class="card-body">
-        <span class="card-cat">YouTube Channel</span>
-        <h3 class="card-name">Sooneeta Keeratee</h3>
-        <p class="card-desc">Vlogs and shorts from everyday life.</p>
-        <span class="card-cta">Watch <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<!-- ============ HOW TO ORDER ============ -->
-<section class="section wrap" id="order">
-  <div class="section-head left reveal">
-    <p class="section-eyebrow">Ordering</p>
-    <h2 class="section-title">How it works</h2>
-  </div>
-  <div class="steps">
-    <div class="step reveal">
-      <span class="step-n">01</span>
-      <h3>Have a look</h3>
-      <p>Everything currently available is on the Instagram grids — new pieces go up there first.</p>
-    </div>
-    <div class="step reveal">
-      <span class="step-n">02</span>
-      <h3>Send a message</h3>
-      <p>Orders are taken by DM. Message the shop to buy something, ask about a custom piece, or check what's in stock.</p>
-    </div>
-    <div class="step reveal">
-      <span class="step-n">03</span>
-      <h3>Posted to you</h3>
-      <p>Wrapped by hand and sent straight to you — worldwide shipping available.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ABOUT ============ -->
-<div class="band">
-<section class="section wrap" id="about">
-  <div class="section-head reveal">
-    <p class="section-eyebrow">About</p>
-    <h2 class="section-title">How it all started</h2>
-  </div>
-  <div class="about reveal">
-    <p class="about-lead">It started with a hook, a length of yarn, and a quiet evening.</p>
-    <p>A crocheted flower that didn't need to exist. A candle poured for a friend. A bouquet wrapped for someone's birthday, an outfit put together just so, a small moment worth filming. None of it was a plan — it was just what I loved doing.</p>
-    <p>Those little joys grew into three brands, all of them mine. Some of it I make by hand. Some of it I choose because I'd wear it myself. Either way, I'll get it to you wherever you are, with the same belief behind it: that the things we keep around us should feel warm, honest, and a little bit personal.</p>
-    <hr class="about-mark">
-    <p class="about-sig">— Sooneeta</p>
-  </div>
-</section>
 </div>
 
-<!-- ============ CONNECT ============ -->
-<section class="section wrap connect" id="connect">
-  <div class="section-head reveal">
-    <p class="section-eyebrow">Connect</p>
-    <h2 class="section-title">Let's keep in touch</h2>
-    <p class="connect-note">Follow along for new pieces, behind-the-scenes moments, and everyday inspiration.</p>
+<!-- BRANDS -->
+<section id="brands" class="brands wrap">
+  <div class="sec-head reveal">
+    <div><p class="eyebrow">My brands</p><h2 class="h2">Three worlds, <em>one creator</em></h2></div>
+    <p class="lede">Each brand has its own home on social media. Tap through to see what's new, then send a message to order.</p>
   </div>
-  <div class="connect-icons reveal">
-    <a href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener">
-      <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
-      <span class="label">Instagram</span>
-    </a>
-    <a href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener">
-      <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>
-      <span class="label">YouTube</span>
-    </a>
-    <a href="https://www.tiktok.com/@keeratee038" target="_blank" rel="noopener">
-      <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4c.5 2.5 2 4 4.5 4.3v3C17 11 15.5 10 15 9.5V15a5 5 0 11-5-5v3a2 2 0 102 2V4z"/></svg></span>
-      <span class="label">TikTok</span>
-    </a>
+  <div class="cards">
+    <article class="card c1 reveal">
+      <div class="card-media"><span class="no">No. 01</span>
+        <div class="row3">
+          <figure><img src="images/handmade-1.webp" alt="Pink handmade flower bouquet, wrapped" width="97" height="130" loading="lazy"></figure>
+          <figure><img src="images/handmade-2.webp" alt="Vanilla scented candle labelled Handmade by Sooneeta" width="97" height="130" loading="lazy"></figure>
+          <figure><img src="images/handmade-3.webp" alt="Crochet bow hair clips in white and orange" width="97" height="130" loading="lazy"></figure>
+        </div>
+        <span class="chip">Made to order</span>
+      </div>
+      <div class="card-body">
+        <p class="cat">Handmade shop</p>
+        <h3>Handmade by Soonee</h3>
+        <p class="desc">Crochet, candles, bouquets and accessories — made to order.</p>
+        <a class="handle" href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener">@handmade_by_soonee <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </article>
+    <article class="card c2 reveal">
+      <div class="card-media"><span class="no">No. 02</span>
+        <div class="row3">
+          <figure><img src="images/mikki-1.webp" alt="Cream faux-fur coat from Mikki Fung Wears" width="97" height="130" loading="lazy"></figure>
+          <figure><img src="images/mikki-2.webp" alt="Red knit sweater" width="97" height="130" loading="lazy"></figure>
+          <figure><img src="images/mikki-3.webp" alt="Black and white striped cardigan" width="97" height="130" loading="lazy"></figure>
+        </div>
+        <span class="chip">New in on Instagram</span>
+      </div>
+      <div class="card-body">
+        <p class="cat">Fashion shop</p>
+        <h3>Mikki Fung Wears</h3>
+        <p class="desc">Everyday clothing, new pieces often — shipped worldwide.</p>
+        <a class="handle" href="https://www.instagram.com/mikkifung_wears" target="_blank" rel="noopener">@mikkifung_wears <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </article>
+    <article class="card c3 reveal">
+      <div class="card-media"><span class="no">No. 03</span>
+        <img class="cover" src="images/yt-1.webp" alt="Video thumbnail: Sooneeta filming inside the Mikki Fung shop" width="600" height="398" loading="lazy">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7l8 5-8 5z"/></svg></span>
+        <span class="chip">1.2K+ subscribers</span>
+      </div>
+      <div class="card-body">
+        <p class="cat">YouTube channel</p>
+        <h3>Sooneeta Keeratee</h3>
+        <p class="desc">Vlogs and shorts from everyday life.</p>
+        <a class="handle" href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener">@sunitasubba177 <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </article>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <p class="made">Made with love.</p>
-    <p>© 2026 Sooneeta Keeratee. All rights reserved.</p>
+<!-- HOW TO ORDER -->
+<section id="order" class="order wrap">
+  <div class="panel reveal">
+    <div class="panel-intro">
+      <p class="eyebrow">Ordering</p>
+      <h2 class="h2">How it <em>works</em></h2>
+      <p>No checkout, no account. Just a friendly message and a parcel on its way.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">01</p><h3>Have a look</h3><p>Everything currently available is on the Instagram grids — new pieces go up there first.</p></div>
+      <div class="step"><p class="n">02</p><h3>Send a message</h3><p>Orders are taken by DM. Message the shop to buy something, ask about a custom piece, or check what's in stock.</p>
+        <div class="dm">
+          <a href="https://ig.me/m/handmade_by_soonee" target="_blank" rel="noopener">Message Handmade <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          <a href="https://ig.me/m/mikkifung_wears" target="_blank" rel="noopener">Message Mikki Fung <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div></div>
+      <div class="step"><p class="n">03</p><h3>Posted to you</h3><p>Wrapped by hand and sent straight to you — worldwide shipping available.</p></div>
+    </div>
   </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about wrap">
+  <div class="about-quote reveal">
+    <p class="eyebrow">About</p>
+    <blockquote>“It started with a hook, a length of yarn, and a quiet evening.”</blockquote>
+    <p class="sig">— Sooneeta</p>
+  </div>
+  <div class="about-text reveal">
+    <p>A crocheted flower that didn't need to exist. A candle poured for a friend. A bouquet wrapped for someone's birthday, an outfit put together just so, a small moment worth filming. None of it was a plan — it was just what I loved doing.</p>
+    <p>Those little joys grew into three brands, all of them mine. Some of it I make by hand. Some of it I choose because I'd wear it myself. Either way, I'll get it to you wherever you are, with the same belief behind it: that the things we keep around us should feel warm, honest, and a little bit personal.</p>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect" class="connect">
+  <div class="connect-box reveal">
+    <p class="eyebrow">Connect</p>
+    <h2>Let's keep <em>in touch</em></h2>
+    <p class="note">Follow along for new pieces, behind-the-scenes moments, and everyday inspiration.</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/handmade_by_soonee" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+      <a href="https://youtube.com/@sunitasubba177" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>YouTube</a>
+      <a href="https://www.tiktok.com/@keeratee038" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4c.5 2.5 2 4 4.5 4.3v3C17 11 15.5 10 15 9.5V15a5 5 0 1 1-5-5v3a2 2 0 1 0 2 2V4z"/></svg>TikTok</a>
+      <a href="https://www.facebook.com/profile.php?id=100071690595192" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><path d="M15.5 8h-1.8c-1.1 0-1.7.6-1.7 1.7V21.5M9.5 13h5.5"/></svg>Facebook</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer wrap">
+  <p class="made">Made with love.</p>
+  <p>© 2026 Sooneeta Keeratee. All rights reserved.</p>
 </footer>
 
 <script>
-// nav blur on scroll
+// nav background once scrolled
 const nav = document.getElementById('nav');
 const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
 onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
-// hamburger menu
+// phone menu drawer
 const ham = document.getElementById('hamburger');
 const links = document.getElementById('navlinks');
 const backdrop = document.getElementById('navBackdrop');
@@ -534,36 +428,36 @@ function setMenu(open){
   links.classList.toggle('open', open);
   ham.classList.toggle('active', open);
   backdrop.classList.toggle('show', open);
-  ham.setAttribute('aria-expanded', open ? 'true':'false');
-  ham.setAttribute('aria-label', open ? 'Close menu':'Open menu');
+  ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+  ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 }
 function closeMenu(){ setMenu(false); }
-ham.addEventListener('click', ()=> setMenu(!links.classList.contains('open')));
+ham.addEventListener('click', () => setMenu(!links.classList.contains('open')));
 backdrop.addEventListener('click', closeMenu);
-// Let the browser do the scrolling. Its own anchor navigation is the most
-// reliable path on iOS WebKit (which is what every iPhone browser runs,
-// Chrome included). We do NOT preventDefault and we do NOT scroll manually.
-// The original bug was only that closing the drawer synchronously hid the
-// tapped link and cancelled the navigation — so defer the close instead.
-// Section offsets are handled by scroll-margin-top in the CSS.
-links.querySelectorAll('a').forEach(a=>{
-  a.addEventListener('click', ()=> setTimeout(closeMenu, 60));
-});
-// Escape closes the drawer and returns focus to the button that opened it
-document.addEventListener('keydown', e=>{
-  if(e.key === 'Escape' && links.classList.contains('open')){ closeMenu(); ham.focus(); }
+// let the browser do the anchor jump (most reliable on iPhone), close just after
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 60)));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && links.classList.contains('open')) { closeMenu(); ham.focus(); }
 });
 
-// fade-up on scroll — only arm hidden state if IntersectionObserver exists
-if('IntersectionObserver' in window){
+// "Message me" shop chooser (desktop dropdown; on phones it sits open inside the drawer)
+const msg = document.getElementById('msg');
+const msgBtn = document.getElementById('msgBtn');
+function setMsg(open){ msg.classList.toggle('open', open); msgBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+msgBtn.addEventListener('click', e => { e.stopPropagation(); setMsg(!msg.classList.contains('open')); });
+document.addEventListener('click', e => { if (!msg.contains(e.target)) setMsg(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && msg.classList.contains('open')) { setMsg(false); msgBtn.focus(); } });
+msg.querySelectorAll('.msg-menu a').forEach(a => a.addEventListener('click', () => setTimeout(() => setMsg(false), 60)));
+
+// fade-up on scroll (only hides content if the browser can reveal it again)
+if ('IntersectionObserver' in window) {
   document.documentElement.classList.add('js-anim');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.12, rootMargin:'0px 0px -5% 0px'});
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold: .12, rootMargin: '0px 0px -5% 0px'});
   const reveals = document.querySelectorAll('.reveal');
-  reveals.forEach(el=>io.observe(el));
-  // safety net: after 3s, force-reveal anything still hidden (e.g. observer missed)
-  setTimeout(()=>reveals.forEach(el=>el.classList.add('in')), 3000);
+  reveals.forEach(el => io.observe(el));
+  setTimeout(() => reveals.forEach(el => el.classList.add('in')), 3000);
 }
 </script>
 </body>
