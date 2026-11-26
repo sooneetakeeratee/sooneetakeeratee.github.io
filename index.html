@@ -116,11 +116,12 @@ em{font-style:italic;}
 .facts{display:flex;flex-wrap:wrap;gap:28px 36px;margin-top:56px;padding-top:28px;border-top:1px solid var(--line);}
 .facts .big{margin:0;font-family:var(--serif);font-size:34px;line-height:1;}
 .facts .small{margin:6px 0 0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-.hero-portrait{flex:1 1 min(380px,100%);min-width:0;display:flex;justify-content:center;position:relative;}
-.arch{width:100%;max-width:460px;aspect-ratio:4/5;border-radius:999px 999px 28px 28px;background:#EAD7C6;overflow:hidden;
-  display:flex;align-items:flex-end;justify-content:center;position:relative;}
-.arch::after{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.7);border-radius:999px 999px 18px 18px;pointer-events:none;}
-.arch img{width:100%;height:88%;object-fit:cover;object-position:top center;}
+.hero-portrait{flex:1 1 min(380px,100%);min-width:0;display:flex;justify-content:flex-end;position:relative;padding:0 20px 20px 0;}
+.hero-portrait{isolation:isolate;}
+.arch::before{content:"";position:absolute;inset:-20px;border-radius:50%;border:1.5px dashed #C9A48C;z-index:-1;pointer-events:none;}
+.arch{width:100%;max-width:430px;aspect-ratio:1/1;border-radius:50%;background:#EAD7C6;position:relative;margin-top:90px;}
+.arch picture{position:absolute;left:0;right:0;bottom:0;height:122%;overflow:hidden;border-radius:0 0 999px 999px;display:block;}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:top center;}
 .badge{position:absolute;left:8px;bottom:24px;background:#fff;border-radius:18px;padding:14px 20px;box-shadow:0 18px 40px rgba(42,30,24,.12);
   display:flex;align-items:center;gap:12px;font-size:14px;font-weight:400;}
 .badge .dot{width:10px;height:10px;border-radius:50%;background:#3E8E5A;box-shadow:0 0 0 4px rgba(62,142,90,.15);}
@@ -136,6 +137,7 @@ em{font-style:italic;}
 .sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px;}
 .sec-head .lede{margin:0;max-width:380px;color:var(--body);}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:28px;}
+@media (min-width:680px) and (max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));}.card.c3{grid-column:1/-1;}}
 .card{background:#fff;border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--line);
   transition:transform .3s ease,box-shadow .3s ease;}
 .card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(42,30,24,.10);}
@@ -151,7 +153,7 @@ em{font-style:italic;}
 
 .chip{position:absolute;right:16px;top:18px;z-index:3;background:rgba(255,255,255,.92);color:var(--ink);font-size:12px;letter-spacing:.06em;
   font-weight:400;padding:7px 12px;border-radius:999px;}
-.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .6s ease;}
+.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 8%;transition:transform .6s ease;}
 .card:hover .cover{transform:scale(1.04);}
 
 .play{position:absolute;left:18px;bottom:18px;width:52px;height:52px;z-index:3;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.3);transition:transform .3s;}
@@ -171,10 +173,11 @@ em{font-style:italic;}
 
 /* ---------- order ---------- */
 .order{padding-bottom:clamp(72px,9vw,112px);}
-.panel{background:var(--sand);border-radius:36px;padding:clamp(36px,6vw,72px) clamp(22px,5vw,64px);display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,56px);}
-.panel-intro{flex:1 1 min(300px,100%);min-width:0;}
-.panel-intro p{margin:22px 0 0;color:var(--body);max-width:320px;}
-.steps{flex:2 1 min(560px,100%);min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:36px;}
+.panel{background:var(--sand);border-radius:36px;padding:clamp(36px,6vw,72px) clamp(22px,5vw,64px);display:flex;flex-direction:column;gap:clamp(32px,5vw,48px);}
+.panel-intro{min-width:0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 40px;}
+.panel-intro p{margin:0;color:var(--body);max-width:380px;}
+.steps{min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,40px);}
+@media (max-width:720px){.steps{grid-template-columns:minmax(0,1fr);}}
 .step{border-top:1px solid #CDBFB1;padding-top:22px;}
 .step .n{margin:0;font-family:var(--serif);font-size:48px;line-height:1;font-style:italic;color:var(--accent);}
 .step h3{margin:18px 0 8px;font-family:var(--serif);font-weight:600;font-size:26px;}
@@ -183,6 +186,7 @@ em{font-style:italic;}
 /* ---------- faq ---------- */
 .faq{padding-bottom:clamp(80px,10vw,120px);display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:flex-start;}
 .faq-intro{flex:1 1 min(340px,100%);min-width:0;}
+@media (min-width:981px){.faq-intro{position:sticky;top:110px;}}
 .faq-intro > p:not(.eyebrow){margin:22px 0 0;color:var(--body);max-width:360px;}
 .faq-intro .dm a{background:var(--sand);}
 .faq-intro .dm a:hover{background:var(--ink);color:#fff;}
@@ -208,8 +212,8 @@ em{font-style:italic;}
 .about-text p{margin:0 0 22px;} .about-text p:last-child{margin:0;}
 
 /* ---------- connect ---------- */
-.connect{padding:0 clamp(12px,2vw,32px) 32px;}
-.connect-box{max-width:1376px;margin:0 auto;background:var(--ink);color:#F3E9DF;border-radius:clamp(24px,4vw,40px);
+.connect{padding-bottom:32px;}
+.connect-box{margin:0 auto;background:var(--ink);color:#F3E9DF;border-radius:clamp(24px,4vw,40px);
   padding:clamp(56px,8vw,96px) clamp(20px,4vw,48px);text-align:center;}
 .connect-box .eyebrow{color:#E39A74;}
 .connect-box h2{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(44px,5.4vw,76px);line-height:1;}
@@ -222,7 +226,7 @@ em{font-style:italic;}
 .socials svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;}
 
 /* ---------- footer ---------- */
-.footer{padding-top:28px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted);}
+.footer{padding-top:28px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;color:var(--muted);}
 .footer p{margin:0;} .footer .made{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink);}
 
 /* ---------- reveal ---------- */
@@ -251,13 +255,29 @@ em{font-style:italic;}
   .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(42,30,24,.3);opacity:0;pointer-events:none;transition:opacity .3s;z-index:45;}
   .nav-backdrop.show{opacity:1;pointer-events:auto;}
 }
+@media (max-width:800px){
+  .socials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:420px;margin-left:auto;margin-right:auto;}
+  .socials a{justify-content:center;padding:14px 12px;}
+}
+@media (max-width:600px){
+  .facts{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:12px;}
+  .facts .big{font-size:clamp(16px,5.2vw,21px);line-height:1.1;}
+  .facts .small{font-size:11px;letter-spacing:.06em;}
+  .strip-inner{font-size:19px;gap:6px 18px;}
+  .strip-inner span.star{display:none;}
+  .card h3{font-size:28px;}
+  .connect-box h2{font-size:clamp(38px,11vw,44px);}
+}
 @media (max-width:760px){
   .hero{gap:36px;}
   .hero-portrait{order:-1;}
-  .arch{max-width:340px;}
+  .hero-portrait{justify-content:center;padding:0 14px 14px;}
+  .arch{max-width:280px;margin-top:64px;}
+  .arch::before{inset:-14px;}
+  .badge{left:50%;transform:translateX(-50%);bottom:2px;white-space:nowrap;}
   .btn{flex:1 1 auto;justify-content:center;}
   .facts{gap:20px 28px;}
-  .facts .big{font-size:28px;}
+  .facts .big{font-size:clamp(16px,5.2vw,28px);line-height:1.1;}
   .sec-head{margin-bottom:36px;}
   .card-media{height:230px;}
   .about-text{padding-top:0;}
@@ -266,7 +286,7 @@ em{font-style:italic;}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"How long does a handmade order take?","acceptedAnswer":{"@type":"Answer","text":"Most handmade pieces are ready in about 3 days."}},
-{"@type":"Question","name":"Where do you ship?","acceptedAnswer":{"@type":"Answer","text":"We ship to Hong Kong, the United Kingdom and the USA."}},
+{"@type":"Question","name":"Where do you ship?","acceptedAnswer":{"@type":"Answer","text":"We ship worldwide, including Hong Kong, the UK and the USA."}},
 {"@type":"Question","name":"How long does delivery take?","acceptedAnswer":{"@type":"Answer","text":"Usually 1 to 2 weeks (7-15 days), depending on the country."}},
 {"@type":"Question","name":"How do I pay?","acceptedAnswer":{"@type":"Answer","text":"Payment is by bank transfer; details are sent by DM once your order is confirmed."}},
 {"@type":"Question","name":"Do you take custom orders?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tell us what you have in mind and we will make it for you."}},
@@ -314,7 +334,7 @@ em{font-style:italic;}
     <div class="facts">
       <div><p class="big">3</p><p class="small">Brands</p></div>
       <div><p class="big"><em>Made to order</em></p><p class="small">By hand, in Nepal</p></div>
-      <div><p class="big"><em>HK · UK · USA</em></p><p class="small">We ship abroad</p></div>
+      <div><p class="big"><em>Worldwide</em></p><p class="small">Shipping</p></div>
     </div>
   </div>
   <div class="hero-portrait reveal">
@@ -370,7 +390,7 @@ em{font-style:italic;}
       <div class="card-body">
         <p class="cat">Fashion shop</p>
         <h3>Mikki Fung Wears</h3>
-        <p class="desc">Everyday clothing, new pieces often — visit the shop or order by DM.</p>
+        <p class="desc">Everyday clothing, new pieces often — visit the shop or order by DM. Shipped worldwide.</p>
         <a class="handle" href="https://www.instagram.com/mikkifung_wears" target="_blank" rel="noopener">@mikkifung_wears <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       </div>
     </article>
@@ -394,8 +414,8 @@ em{font-style:italic;}
 <section id="order" class="order wrap">
   <div class="panel reveal">
     <div class="panel-intro">
-      <p class="eyebrow">Ordering</p>
-      <h2 class="h2">How it <em>works</em></h2>
+      <div><p class="eyebrow">Ordering</p>
+      <h2 class="h2">How it <em>works</em></h2></div>
       <p>No checkout, no account. Just a friendly message and a parcel on its way.</p>
     </div>
     <div class="steps">
@@ -405,7 +425,7 @@ em{font-style:italic;}
           <a href="https://ig.me/m/handmade_by_soonee" target="_blank" rel="noopener">Message Handmade <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
           <a href="https://ig.me/m/mikkifung_wears" target="_blank" rel="noopener">Message Mikki Fung <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         </div></div>
-      <div class="step"><p class="n">03</p><h3>Posted to you</h3><p>Wrapped by hand and sent to you — we ship to Hong Kong, the UK and the USA.</p></div>
+      <div class="step"><p class="n">03</p><h3>Posted to you</h3><p>Wrapped by hand and sent straight to you — we ship worldwide.</p></div>
     </div>
   </div>
 </section>
@@ -425,7 +445,7 @@ em{font-style:italic;}
     <details open><summary>How long does a handmade order take?</summary>
       <p>Most handmade pieces — crochet, candles and bouquets — are ready in about <strong>3 days</strong>. Custom or larger orders can take a little longer; we'll confirm the timing when you order.</p></details>
     <details><summary>Where do you ship?</summary>
-      <p>We ship to <strong>Hong Kong, the United Kingdom and the USA</strong>. Living somewhere else? Send a message and we'll see what we can do.</p></details>
+      <p>We ship <strong>worldwide</strong> — including Hong Kong, the UK and the USA. Send a message with your country and we'll confirm the delivery details.</p></details>
     <details><summary>How long does delivery take?</summary>
       <p>Usually <strong>1 to 2 weeks</strong> (7–15 days) after your order is posted, depending on the country.</p></details>
     <details><summary>How do I pay?</summary>
@@ -455,7 +475,7 @@ em{font-style:italic;}
 </section>
 
 <!-- CONNECT -->
-<section id="connect" class="connect">
+<section id="connect" class="connect wrap">
   <div class="connect-box reveal">
     <p class="eyebrow">Connect</p>
     <h2>Let's keep <em>in touch</em></h2>
