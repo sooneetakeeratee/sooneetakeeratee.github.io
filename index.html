@@ -180,6 +180,25 @@ em{font-style:italic;}
 .step h3{margin:18px 0 8px;font-family:var(--serif);font-weight:600;font-size:26px;}
 .step p{margin:0;color:var(--body);font-size:16px;}
 
+/* ---------- faq ---------- */
+.faq{padding-bottom:clamp(80px,10vw,120px);display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:flex-start;}
+.faq-intro{flex:1 1 min(340px,100%);min-width:0;}
+.faq-intro > p:not(.eyebrow){margin:22px 0 0;color:var(--body);max-width:360px;}
+.faq-intro .dm a{background:var(--sand);}
+.faq-intro .dm a:hover{background:var(--ink);color:#fff;}
+.faq-list{flex:2 1 min(560px,100%);min-width:0;border-top:1px solid var(--line);}
+.faq-list details{border-bottom:1px solid var(--line);}
+.faq-list summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:44px;
+  padding:22px 0;font-family:var(--serif);font-size:clamp(21px,2vw,25px);font-weight:500;line-height:1.25;}
+.faq-list summary::-webkit-details-marker{display:none;}
+.faq-list summary::after{content:"";flex:none;width:32px;height:32px;border-radius:50%;border:1px solid #CDBFB1;
+  background:linear-gradient(var(--ink),var(--ink)) center/12px 1.5px no-repeat,linear-gradient(var(--ink),var(--ink)) center/1.5px 12px no-repeat;transition:transform .25s,background-color .2s;}
+.faq-list details[open] summary::after{transform:rotate(45deg);background-color:var(--sand);}
+.faq-list summary:hover{color:var(--accent);}
+.faq-list details p{margin:-6px 0 24px;max-width:620px;color:var(--body);}
+.faq-list details strong{color:var(--ink);font-weight:500;}
+.faq-list details a{color:var(--accent);font-weight:400;display:inline-flex;align-items:center;min-height:44px;padding:0 2px;}
+
 /* ---------- about ---------- */
 .about{padding-bottom:clamp(80px,10vw,120px);display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,64px);align-items:flex-start;}
 .about-quote{flex:1 1 min(420px,100%);min-width:0;}
@@ -213,7 +232,7 @@ em{font-style:italic;}
   .card,.card-media svg,.btn,.strip3 img,.cover,.play{transition:none;}}
 
 /* ---------- phone ---------- */
-@media (max-width:760px){
+@media (max-width:980px){
   .brandmark .name{font-size:21px;}
   .hamburger{display:block;z-index:70;position:relative;}
   .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -231,6 +250,8 @@ em{font-style:italic;}
   .nav-links .msg-menu a{padding:10px 0;font-size:16px;}
   .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(42,30,24,.3);opacity:0;pointer-events:none;transition:opacity .3s;z-index:45;}
   .nav-backdrop.show{opacity:1;pointer-events:auto;}
+}
+@media (max-width:760px){
   .hero{gap:36px;}
   .hero-portrait{order:-1;}
   .arch{max-width:340px;}
@@ -242,6 +263,17 @@ em{font-style:italic;}
   .about-text{padding-top:0;}
 }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How long does a handmade order take?","acceptedAnswer":{"@type":"Answer","text":"Most handmade pieces are ready in about 3 days."}},
+{"@type":"Question","name":"Where do you ship?","acceptedAnswer":{"@type":"Answer","text":"We ship to Hong Kong, the United Kingdom and the USA."}},
+{"@type":"Question","name":"How long does delivery take?","acceptedAnswer":{"@type":"Answer","text":"Usually 1 to 2 weeks (7-15 days), depending on the country."}},
+{"@type":"Question","name":"How do I pay?","acceptedAnswer":{"@type":"Answer","text":"Payment is by bank transfer; details are sent by DM once your order is confirmed."}},
+{"@type":"Question","name":"Do you take custom orders?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tell us what you have in mind and we will make it for you."}},
+{"@type":"Question","name":"How much do things cost?","acceptedAnswer":{"@type":"Answer","text":"Prices start from Rs 500 and depend on the product."}},
+{"@type":"Question","name":"Can I visit the Mikki Fung shop?","acceptedAnswer":{"@type":"Answer","text":"Yes, in Dhumbarahi, Pipalbot, Kathmandu. Closed on Saturdays."}},
+{"@type":"Question","name":"Can I return or exchange an item?","acceptedAnswer":{"@type":"Answer","text":"All sales are final; there are no returns or exchanges."}}]}
+</script>
 </head>
 <body>
 
@@ -252,6 +284,7 @@ em{font-style:italic;}
     <nav class="nav-links" id="navlinks" aria-label="Primary">
       <a href="#brands">Brands</a>
       <a href="#order">How to order</a>
+      <a href="#faq">FAQ</a>
       <a href="#about">About</a>
       <a href="#connect">Contact</a>
       <div class="msg" id="msg">
@@ -281,7 +314,7 @@ em{font-style:italic;}
     <div class="facts">
       <div><p class="big">3</p><p class="small">Brands</p></div>
       <div><p class="big"><em>Made to order</em></p><p class="small">By hand, in Nepal</p></div>
-      <div><p class="big"><em>Worldwide</em></p><p class="small">Shipping</p></div>
+      <div><p class="big"><em>HK · UK · USA</em></p><p class="small">We ship abroad</p></div>
     </div>
   </div>
   <div class="hero-portrait reveal">
@@ -337,7 +370,7 @@ em{font-style:italic;}
       <div class="card-body">
         <p class="cat">Fashion shop</p>
         <h3>Mikki Fung Wears</h3>
-        <p class="desc">Everyday clothing, new pieces often — shipped worldwide.</p>
+        <p class="desc">Everyday clothing, new pieces often — visit the shop or order by DM.</p>
         <a class="handle" href="https://www.instagram.com/mikkifung_wears" target="_blank" rel="noopener">@mikkifung_wears <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       </div>
     </article>
@@ -372,8 +405,39 @@ em{font-style:italic;}
           <a href="https://ig.me/m/handmade_by_soonee" target="_blank" rel="noopener">Message Handmade <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
           <a href="https://ig.me/m/mikkifung_wears" target="_blank" rel="noopener">Message Mikki Fung <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         </div></div>
-      <div class="step"><p class="n">03</p><h3>Posted to you</h3><p>Wrapped by hand and sent straight to you — worldwide shipping available.</p></div>
+      <div class="step"><p class="n">03</p><h3>Posted to you</h3><p>Wrapped by hand and sent to you — we ship to Hong Kong, the UK and the USA.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq wrap">
+  <div class="faq-intro reveal">
+    <p class="eyebrow">Good to know</p>
+    <h2 class="h2">Questions, <em>answered</em></h2>
+    <p>Everything you might want to know before you send a message. Still unsure? Just send a message.</p>
+    <div class="dm">
+      <a href="https://ig.me/m/handmade_by_soonee" target="_blank" rel="noopener">Ask Handmade <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      <a href="https://ig.me/m/mikkifung_wears" target="_blank" rel="noopener">Ask Mikki Fung <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+    </div>
+  </div>
+  <div class="faq-list reveal">
+    <details open><summary>How long does a handmade order take?</summary>
+      <p>Most handmade pieces — crochet, candles and bouquets — are ready in about <strong>3 days</strong>. Custom or larger orders can take a little longer; we'll confirm the timing when you order.</p></details>
+    <details><summary>Where do you ship?</summary>
+      <p>We ship to <strong>Hong Kong, the United Kingdom and the USA</strong>. Living somewhere else? Send a message and we'll see what we can do.</p></details>
+    <details><summary>How long does delivery take?</summary>
+      <p>Usually <strong>1 to 2 weeks</strong> (7–15 days) after your order is posted, depending on the country.</p></details>
+    <details><summary>How do I pay?</summary>
+      <p>Payment is by <strong>bank transfer</strong>. We'll send the account details by DM once your order is confirmed.</p></details>
+    <details><summary>Do you take custom orders?</summary>
+      <p><strong>Yes!</strong> Tell us the colours, flowers, scent or occasion you have in mind and we'll make something just for you.</p></details>
+    <details><summary>How much do things cost?</summary>
+      <p>Prices start from <strong>Rs 500</strong> and depend on the product and size. Message us with what you like and we'll give you an exact price.</p></details>
+    <details><summary>Can I visit the Mikki Fung shop?</summary>
+      <p>Yes — the shop is in <strong>Dhumbarahi, Pipalbot, Kathmandu</strong>. We're <strong>closed on Saturdays</strong>. <a href="https://www.google.com/maps/search/?api=1&amp;query=Dhumbarahi+Pipalbot+Kathmandu" target="_blank" rel="noopener">Open in Maps</a></p></details>
+    <details><summary>Can I return or exchange an item?</summary>
+      <p>All sales are final — we're not able to offer <strong>returns or exchanges</strong>. If you're unsure about a size, colour or detail, please ask us before you order and we'll happily send more photos.</p></details>
   </div>
 </section>
 
