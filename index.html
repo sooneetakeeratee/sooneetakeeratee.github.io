@@ -144,18 +144,17 @@ em{font-style:italic;}
 .card-media svg{transition:transform .5s ease;}
 .card:hover .card-media > svg{transform:scale(1.06) rotate(-3deg);}
 .card-media .no{z-index:3;}
-.row3{display:flex;gap:10px;align-items:flex-end;margin-top:22px;}
-.row3 figure{margin:0;padding:4px;background:#fff;border-radius:10px;box-shadow:0 10px 22px rgba(42,30,24,.14);transition:transform .35s ease;}
-.row3 figure:nth-child(2){transform:translateY(-12px);}
-.row3 img{display:block;width:97px;height:130px;object-fit:cover;border-radius:7px;}
-.card:hover .row3 figure{transform:translateY(-4px);}
-.card:hover .row3 figure:nth-child(2){transform:translateY(-16px);}
+.strip3{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;background:#fff;}
+.strip3 figure{margin:0;overflow:hidden;}
+.strip3 img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.card:hover .strip3 img{transform:scale(1.05);}
+.card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.30),rgba(0,0,0,0) 36%);pointer-events:none;z-index:1;}
+.card-media .no{color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.25);}
 .chip{position:absolute;right:16px;top:18px;z-index:3;background:rgba(255,255,255,.92);color:var(--ink);font-size:12px;letter-spacing:.06em;
   font-weight:400;padding:7px 12px;border-radius:999px;}
 .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .6s ease;}
 .card:hover .cover{transform:scale(1.04);}
-.c3 .card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,0) 38%);pointer-events:none;}
-.c3 .no{color:#fff!important;}
+
 .play{position:absolute;left:18px;bottom:18px;width:52px;height:52px;z-index:3;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.3);transition:transform .3s;}
 .card:hover .play{transform:scale(1.08);}
 .play svg{width:22px;height:22px;fill:#fff;margin-left:3px;}
@@ -212,10 +211,9 @@ em{font-style:italic;}
 .js-anim .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
 .js-anim .reveal.in{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none;}
-  .card,.card-media svg,.btn,.row3 figure,.cover,.play{transition:none;}}
+  .card,.card-media svg,.btn,.strip3 img,.cover,.play{transition:none;}}
 
 /* ---------- phone ---------- */
-@media (max-width:380px){.row3{gap:8px;}.row3 img{width:72px;height:96px;}}
 @media (max-width:760px){
   .brandmark .name{font-size:21px;}
   .hamburger{display:block;z-index:70;position:relative;}
@@ -314,10 +312,10 @@ em{font-style:italic;}
   <div class="cards">
     <article class="card c1 reveal">
       <div class="card-media"><span class="no">No. 01</span>
-        <div class="row3">
-          <figure><img src="images/handmade-1.webp" alt="Pink handmade flower bouquet, wrapped" width="97" height="130" loading="lazy"></figure>
-          <figure><img src="images/handmade-2.webp" alt="Vanilla scented candle labelled Handmade by Sooneeta" width="97" height="130" loading="lazy"></figure>
-          <figure><img src="images/handmade-3.webp" alt="Crochet bow hair clips in white and orange" width="97" height="130" loading="lazy"></figure>
+        <div class="strip3">
+          <figure><img src="images/handmade-1.webp" alt="Pink handmade flower bouquet, wrapped" width="320" height="576" loading="lazy"></figure>
+          <figure><img src="images/handmade-2.webp" alt="Vanilla scented candle labelled Handmade by Sooneeta" width="320" height="576" loading="lazy"></figure>
+          <figure><img src="images/handmade-3.webp" alt="Crochet bow hair clips in white and orange" width="320" height="576" loading="lazy"></figure>
         </div>
         <span class="chip">Made to order</span>
       </div>
@@ -330,10 +328,10 @@ em{font-style:italic;}
     </article>
     <article class="card c2 reveal">
       <div class="card-media"><span class="no">No. 02</span>
-        <div class="row3">
-          <figure><img src="images/mikki-1.webp" alt="Cream faux-fur coat from Mikki Fung Wears" width="97" height="130" loading="lazy"></figure>
-          <figure><img src="images/mikki-2.webp" alt="Red knit sweater" width="97" height="130" loading="lazy"></figure>
-          <figure><img src="images/mikki-3.webp" alt="Black and white striped cardigan" width="97" height="130" loading="lazy"></figure>
+        <div class="strip3">
+          <figure><img src="images/mikki-1.webp" alt="Cream faux-fur coat from Mikki Fung Wears" width="320" height="576" loading="lazy"></figure>
+          <figure><img src="images/mikki-2.webp" alt="Red knit sweater" width="320" height="576" loading="lazy"></figure>
+          <figure><img src="images/mikki-3.webp" alt="Black and white striped cardigan" width="320" height="576" loading="lazy"></figure>
         </div>
         <span class="chip">New in on Instagram</span>
       </div>
